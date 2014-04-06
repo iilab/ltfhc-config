@@ -1,0 +1,22 @@
+---
+- name: Configure ppp options for ZTE USB modem
+  action: copy src=etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+
+- name: Configure ppp options for airtel provider
+  action: copy src=etc/ppp/peers/airtel dest=/etc/ppp/peers/airtel
+
+- name: Check permissions
+  action: acl name=/etc/ppp/options.mobile
+  register: acl_info
+
+- name: Checks ppp interface
+  action: interfaces name=ppp0 iface_type=ppp provider=airtel
+
+- name: Checks ppp service
+  action: service name=pppd state=running enabled=yes
+  
+- name: Get ppp log
+  action: fetch src=/var/log/upstart/networking.log
+
+- name: Get ppp connect error log
+  action: fetch src=/var/log/ppp-connect-errors

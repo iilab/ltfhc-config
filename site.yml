@@ -1,0 +1,5 @@
+---
+- include: clinic.yml
+- include: link.yml
+- include: district.yml
+- include: hub.yml

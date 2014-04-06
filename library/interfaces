@@ -1,0 +1,200 @@
+#!/usr/bin/python
+
+import os
+import json
+
+def update(module, state, name, auto, hotplug, iface_type, addr_family, address,
+           netmask, nameservers, gateway, provider):
+    try:
+        fd = open('/etc/network/interfaces')
+
+        iface = ""
+        addr_family = ""
+        results = {}
+        ignored = []
+
+        for line in fd:
+            fields = line.strip().split()
+
+            if not fields:
+                continue
+            elif fields[0] in ['auto', 'allow-hotplug']:
+                iface = fields[1]
+
+                if iface not in results.keys():
+                    results[iface] = {}
+
+                results[iface].update({fields[0]: True})
+            elif fields[0] == 'iface':
+                iface = fields[1]
+                addr_family = fields[2]
+
+                if iface not in results.keys():
+                    results[iface] = {}
+
+                results[iface].update(
+                    {
+                        'addr_family': {addr_family: {}},
+                        'iface_type': fields[3]
+                    }
+                )
+            elif fields[0] in [
+                    'address', 'netmask', 'gateway', 'up', 'down',
+                    'pre-up', 'post-up', 'pre-down', 'post-down',
+                    'dns-nameservers']:
+
+                # In an interface block?
+                if not iface:
+                    ignored.append(line.strip())
+                    continue
+
+                entry = fields[0]
+                rest = " ".join(fields[1:])
+                entries = results[iface]['addr_family'][addr_family]
+
+                # Store these as a list
+                if entry.startswith(('pre','post','up','down')):
+                    if not entry in entries:
+                        entries[entry] = []
+
+                    entries[entry].append(rest)
+                # The rest are unique
+                else:
+                    entries.update({entry: rest})
+            else:
+                ignored.append(line.strip())
+
+        # Close file so we copy over it
+        fd.close()
+
+        # Truncate
+        fd = open('/etc/network/interfaces.tmp', 'w')
+        fd.write('# This file is controlled by ansible\n')
+
+        # Build basic structure
+        entry = {
+            'auto': auto,
+            'allow-hotplug': hotplug,
+            'iface_type': iface_type,
+            'addr_family': {addr_family: {}}
+        }
+
+        # Add iface directives
+        for key in {
+                'address': address,
+                'netmask': netmask,
+                'gateway': gateway,
+                'dns-namservers': nameservers
+        }.items():
+            if key[1]:
+                entry['addr_family'][addr_family].update({key[0]: key[1]})
+
+        # Default
+        changed = False
+
+        # Handle state request
+        if state == 'present':
+            if not name in results.keys() or results[name] != entry:
+                changed = True
+                results[name] = entry
+        elif state == 'absent':
+            if name in results.keys():
+                changed = True
+                results[name] = {}
+
+        # Write it out
+        for iface in sorted(results.keys(), reverse=True):
+            for directive in sorted(results[iface].keys(), reverse=True):
+                if directive in ['auto', 'allow-hotplug'] \
+                and results[iface][directive]:
+                    fd.write('%s %s' % (directive, iface) + '\n')
+                elif directive in ['addr_family']:
+                    addr_families = results[iface][directive]
+                    for addr_family in sorted(addr_families.keys()):
+                        fd.write(
+                            'iface %s %s %s' % (
+                                iface,
+                                addr_family,
+                                results[iface]['iface_type']
+                            )
+                            + '\n'
+                        )
+                        entries = addr_families[addr_family]
+                        for entry in sorted(entries.keys()):
+                            if entry.startswith(('pre','post','up','down')):
+                                for cmd in entries[entry]:
+                                    fd.write(
+                                        '    %s %s' % (entry, cmd)
+                                        + '\n'
+                                    )
+                            else:
+                                fd.write(
+                                    '    %s %s' % (entry, entries[entry])
+                                    + '\n'
+                                )
+                        fd.write('\n')
+                else:
+                    ignored.append('Key error: %s' % directive)
+
+        # Close file so we can move it
+        fd.close()
+        #os.rename('/etc/network/interfaces.tmp', '/etc/network/interfaces')
+
+        module.exit_json(
+            changed=changed,
+            results=json.dumps(results),
+            ignored=json.dumps(ignored)
+        )
+    except Exception, e:
+        module.fail_json(
+            msg='%s' % e,
+            results=json.dumps(results),
+            ignored=json.dumps(ignored)
+        )
+
+def main():
+    module = AnsibleModule(
+        argument_spec   = dict(
+            state       = dict(required=False,
+                               default='present',
+                               choices=['present', 'absent']),
+            name        = dict(required=True,
+                               aliases=['interface']),
+            auto        = dict(required=False,
+                               default=True,
+                               choices=BOOLEANS),
+            hotplug     = dict(required=False,
+                               default=False,
+                               choices=BOOLEANS),
+            iface_type  = dict(required=False,
+                               default='dhcp',
+                               choices=['dhcp', 'manual', 'static', 'ppp']),
+            addr_family = dict(required=False,
+                               default='inet',
+                               choices=['inet', 'inet6']),
+            address     = dict(required=False),
+            netmask     = dict(required=False),
+            nameservers = dict(required=False),
+            gateway     = dict(required=False),
+            provider     = dict(required=False)
+        )
+    )
+
+    state       = module.params.get('state')
+    name        = module.params.get('name')
+    auto        = module.params.get('auto')
+    hotplug     = module.params.get('hotplug')
+    iface_type  = module.params.get('iface_type')
+    addr_family = module.params.get('addr_family')
+    address     = module.params.get('address')
+    netmask     = module.params.get('netmask')
+    nameservers = module.params.get('nameservers')
+    gateway     = module.params.get('gateway')
+    provider    = module.params.get('provider')
+
+    update(module, state, name, auto, hotplug, iface_type, addr_family, address,
+           netmask, nameservers, gateway, provider)
+
+# include magic from lib/ansible/module_common.py
+#<<INCLUDE_ANSIBLE_MODULE_COMMON>>
+main()

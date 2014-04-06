@@ -1,0 +1,10 @@
+---
+
+- name: Grabs custom facts
+  action: ltfhc_facts
+
+- name: Get syslog log
+  action: fetch src=/var/log/syslog
+
+- name: Get devices log
+  action: fetch src=/var/log/udev

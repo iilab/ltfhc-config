@@ -1,0 +1,4 @@
+- hosts: link
+  roles:
+    - base
+    - 3g

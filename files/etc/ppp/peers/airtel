@@ -1,0 +1,3 @@
+file /etc/ppp/options.mobile
+connect "/usr/sbin/chat -v -t15 -f /etc/chatscripts/mobile-modem"
+

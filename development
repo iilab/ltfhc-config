@@ -1,0 +1,22 @@
+[clinic-node]
+namansi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2210 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[clinic-link]
+kirando ansible_ssh_host=127.0.0.1 ansible_ssh_port=2211 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[district-link]
+nkasi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+
+[hub]
+ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant       
+
+[clinic:children]
+clinic-node
+clinic-link
+
+[district:children]
+district-link
+
+[link:children]
+clinic-link
+district-link

@@ -1,0 +1,8 @@
+---
+- include: diagnose.yml tags=deploy,diagnose,repair,update
+
+- include: deploy.yml tags=deploy
+
+- include: repair.yml tags=repair
+
+- include: update.yml tags=update

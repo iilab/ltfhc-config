@@ -1,0 +1,4 @@
+- hosts: district
+  roles:
+    - base
+#    - emr
