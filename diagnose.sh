@@ -1,1 +1,1 @@
-ansible-playbook -i production site.yml -t diagnose
+ansible-playbook -i production site.yml -t diagnose	
