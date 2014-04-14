@@ -1,6 +1,6 @@
 ---
 - name: Get networking upstart log
-  synchronize: src=/var/log/upstart/networking.log dest={{ report_directory }}/{{ inventory_hostname }}/var/log/upstart/ mode=pull rsync_path="sudo rsync"
+  synchronize: src=/var/log/upstart/networking.log dest={{ report_directory }}/{{ inventory_hostname }}/var/log/upstart/ mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   register: command_result
   ignore_errors: yes

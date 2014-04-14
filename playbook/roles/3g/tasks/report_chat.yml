@@ -1,5 +1,5 @@
 ---
 - name: Get chat configuration
-  synchronize: src=/etc/chatscripts dest={{ report_directory }}/{{ ansible_hostname }}/etc/chatscripts mode=pull rsync_path="sudo rsync"
+  synchronize: src=/etc/chatscripts dest={{ report_directory }}/{{ ansible_hostname }}/etc/chatscripts mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes

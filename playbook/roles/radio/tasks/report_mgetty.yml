@@ -1,15 +1,15 @@
 ---
 - name: Get mgetty configuration
-  synchronize: src=/etc/mgetty dest={{ report_directory }}/{{ ansible_hostname }}/etc/mgetty mode=pull rsync_path="sudo rsync"
+  synchronize: src=/etc/mgetty dest={{ report_directory }}/{{ ansible_hostname }}/etc/mgetty mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes
 
 - name: Get mgetty log
-  synchronize: src=/var/log/mgetty dest={{ report_directory }}/{{ ansible_hostname }}/var/log/mgetty mode=pull rsync_path="sudo rsync"
+  synchronize: src=/var/log/mgetty dest={{ report_directory }}/{{ ansible_hostname }}/var/log/mgetty mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes
 
 - name: Get mgetty ttyS0 startup script
-  synchronize: src=/etc/init/ttyS0 dest={{ report_directory }}/{{ ansible_hostname }}/etc/init/ttyS0 mode=pull rsync_path="sudo rsync"
+  synchronize: src=/etc/init/ttyS0 dest={{ report_directory }}/{{ ansible_hostname }}/etc/init/ttyS0 mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes

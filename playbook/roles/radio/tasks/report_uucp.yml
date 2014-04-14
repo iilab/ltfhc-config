@@ -1,11 +1,11 @@
 ---
 - name: Get uucp configuration
-  synchronize: src=/etc/uucp dest={{ report_directory }}/{{ ansible_hostname }}/etc/uucp mode=pull rsync_path="sudo rsync"
+  synchronize: src=/etc/uucp dest={{ report_directory }}/{{ ansible_hostname }}/etc/uucp mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes
 
 - name: Get uucp log
-  synchronize: src=/var/log/uucp dest={{ report_directory }}/{{ ansible_hostname }}/var/log/uucp mode=pull rsync_path="sudo rsync"
+  synchronize: src=/var/log/uucp dest={{ report_directory }}/{{ ansible_hostname }}/var/log/uucp mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes
 
@@ -33,7 +33,7 @@
   
 
 - name: Get uucp output directory
-  synchronize: src=/tmp/uucp-output dest={{ report_directory }}/{{ ansible_hostname }}/output/uucp mode=pull rsync_path="sudo rsync"
+  synchronize: src=/tmp/uucp-output dest={{ report_directory }}/{{ ansible_hostname }}/output/uucp mode=pull rsync_path="sudo rsync" rsync_timeout=60
   ignore_errors: yes
   
 

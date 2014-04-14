@@ -1,10 +1,10 @@
 ---
 - name: Get apt configuration
-  synchronize: src=/etc/apt dest={{ report_directory }}/{{ inventory_hostname }}/etc/apt mode=pull rsync_path="sudo rsync"
+  synchronize: src=/etc/apt dest={{ report_directory }}/{{ inventory_hostname }}/etc/apt mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
 
 - name: Get apt log
-  synchronize: src=/var/log/apt dest={{ report_directory }}/{{ inventory_hostname }}/var/log/apt mode=pull rsync_path="sudo rsync"
+  synchronize: src=/var/log/apt dest={{ report_directory }}/{{ inventory_hostname }}/var/log/apt mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
 
 - name: Create apt output directory
@@ -27,7 +27,7 @@
   sudo: yes
 
 - name: Get apt output directory
-  synchronize: src=/tmp/apt-output dest={{ report_directory }}/{{ inventory_hostname }}/output/apt mode=pull rsync_path="sudo rsync"
+  synchronize: src=/tmp/apt-output dest={{ report_directory }}/{{ inventory_hostname }}/output/apt mode=pull rsync_path="sudo rsync" rsync_timeout=60
 
 - name: Remove apt output directory
   command: rm -rf /tmp/apt-output removes=/tmp/apt-output

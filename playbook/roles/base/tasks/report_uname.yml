@@ -7,7 +7,7 @@
   sudo: yes
 
 - name: Get apt output directory
-  synchronize: src=/tmp/uname-output dest={{ report_directory }}/{{ inventory_hostname }}/output/uname mode=pull rsync_path="sudo rsync"
+  synchronize: src=/tmp/uname-output dest={{ report_directory }}/{{ inventory_hostname }}/output/uname mode=pull rsync_path="sudo rsync" rsync_timeout=60
 
 - name: Remove uname output directory
   command: rm -rf /tmp/uname-output removes=/tmp/uname-output

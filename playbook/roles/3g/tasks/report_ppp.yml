@@ -5,6 +5,6 @@
   ignore_errors: yes
 
 - name: Get ppp connect error log
-  synchronize: src=/var/log/ppp-connect-errors dest={{ report_directory }}/{{ inventory_hostname }}/var/log/ mode=pull rsync_path="sudo rsync"
+  synchronize: src=/var/log/ppp-connect-errors dest={{ report_directory }}/{{ inventory_hostname }}/var/log/ mode=pull rsync_path="sudo rsync" rsync_timeout=60
   sudo: yes
   ignore_errors: yes
