@@ -1,4 +1,4 @@
-- hosts: clinic
+- hosts: node
   roles:
     - base
     - radio

@@ -12,16 +12,17 @@ nkasi ansible_ssh_host=10.9.0.8 ansible_ssh_user=lastmile ansible_ssh_pass=lastm
 [hub]
 #ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant       
 
-[clinic:children]
+[node:children]
 clinic-node
 clinic-link
+distric-link
 
 [link:children]
 clinic-link
 district-link
 
 [all:children]
-clinic
+clinic-node
 clinic-link
 district-link
 hub
