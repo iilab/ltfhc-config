@@ -15,7 +15,7 @@ nkasi ansible_ssh_host=10.9.0.8 ansible_ssh_user=lastmile ansible_ssh_pass=lastm
 [node:children]
 clinic-node
 clinic-link
-distric-link
+district-link
 
 [link:children]
 clinic-link

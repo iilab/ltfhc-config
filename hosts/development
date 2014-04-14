@@ -13,7 +13,7 @@ ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant 
 [node:children]
 clinic-node
 clinic-link
-distric-link
+district-link
 
 [link:children]
 clinic-link
