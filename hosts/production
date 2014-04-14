@@ -1,14 +1,13 @@
 [clinic-node]
-namansi ansible_ssh_host=192.168.44.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
-izinga ansible_ssh_host=192.168.45.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
-kasovu ansible_ssh_host=192.168.41.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
-kigoma ansible_ssh_host=192.168.42.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+#namansi ansible_ssh_host=10.8.0.9 ansible_ssh_port=2222 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+#kigoma ansible_ssh_host=10.8.0.9 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+#izinga ansible_ssh_host=10.8.0.? ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [clinic-link]
-kirando ansible_ssh_host=192.168.45.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kirando ansible_ssh_host=10.9.0.4 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [district-link]
-nkasi ansible_ssh_host=192.168.43.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+nkasi ansible_ssh_host=10.9.0.8 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [hub]
 #ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant       
