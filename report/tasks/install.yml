@@ -1,6 +1,0 @@
----
-# Task:  Install sosreport package
-
-- name: Install sosreport DEB
-  action: apt pkg=sosreport
-  when: ansible_os_family == "Debian"

@@ -1,0 +1,17 @@
+- name: Create report directory
+  local_action: command mkdir {{ report_directory }} creates={{ report_directory }}
+
+- name: Create host directory
+  local_action: command mkdir {{ report_directory }}/{{ ansible_hostname }} creates={{ report_directory }}/{{ ansible_hostname }}
+
+- name: Create etc directory
+  local_action: command mkdir {{ report_directory }}/{{ ansible_hostname }}/etc creates={{ report_directory }}/{{ ansible_hostname }}/etc
+
+- name: Create var directory
+  local_action: command mkdir {{ report_directory }}/{{ ansible_hostname }}/var creates={{ report_directory }}/{{ ansible_hostname }}/var
+
+- name: Create var/log directory
+  local_action: command mkdir {{ report_directory }}/{{ ansible_hostname }}/var/log creates={{ report_directory }}/{{ ansible_hostname }}/var/log
+
+- name: Create output directory
+  local_action: command mkdir {{ report_directory }}/{{ ansible_hostname }}/output creates={{ report_directory }}/{{ ansible_hostname }}/output

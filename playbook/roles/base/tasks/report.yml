@@ -1,0 +1,4 @@
+---
+- include: report_make_local_dir.yml
+- include: report_apt.yml
+#- include: report_boot.yml
