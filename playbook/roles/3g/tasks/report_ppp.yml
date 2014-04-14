@@ -1,0 +1,10 @@
+---
+- name: Check permissions
+  action: acl name=/etc/ppp/options.mobile
+  register: acl_info
+  ignore_errors: yes
+
+- name: Get ppp connect error log
+  synchronize: src=/var/log/ppp-connect-errors dest={{ report_directory }}/{{ inventory_hostname }}/var/log/ mode=pull rsync_path="sudo rsync"
+  sudo: yes
+  ignore_errors: yes

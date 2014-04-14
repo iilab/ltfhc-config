@@ -1,16 +1,3 @@
 ---
-- name: Check permissions
-  action: acl name=/etc/ppp/options.mobile
-  register: acl_info
-  ignore_errors: yes
-
-- name: Get networking upstart log
-  synchronize: src=/var/log/upstart/networking.log dest={{ report_directory }}/{{ ansible_hostname }}/var/log/upstart/ mode=pull rsync_path="sudo rsync"
-  sudo: yes
-  register: command_result
-  ignore_errors: yes
-
-- name: Get ppp connect error log
-  synchronize: src=/var/log/ppp-connect-errors dest={{ report_directory }}/{{ ansible_hostname }}/var/log/ mode=pull rsync_path="sudo rsync"
-  sudo: yes
-  ignore_errors: yes
+- include: report_ppp.yml
+- include: report_networking.yml

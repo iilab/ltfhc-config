@@ -1,0 +1,69 @@
+#
+# sys		This is the file where you define all the remote
+#		UUCP systems you know about, whether you dial in to them
+#		or they dial in to you.
+#
+#		Note that if you want to dial into another system, you
+#		have to enter the loginname and password NOT here but
+#		in the file /etc/uucp/call.
+#
+
+#
+# First some defaults. These are for all other entries (unless overridden).
+#
+#debug all
+
+protocol G
+protocol-parameter G packet-size 1024
+protocol-parameter G window 7
+protocol-parameter G short-packets true
+protocol-parameter G timeout 60
+protocol-parameter G retries 10
+
+local-send      /
+local-receive   /
+remote-send     /
+remote-receive  /
+
+system ltfhc-prod
+call-login *
+call-password *
+time any
+address ltfhc-prod.vpn
+port TCP
+protocol t
+
+system kirando
+call-login *
+call-password *
+time any
+phone 12301
+chat-timeout 120
+
+system nkasi
+call-login *
+call-password *
+time any
+phone 12302
+chat-timeout 120
+
+system izinga
+call-login *
+call-password *
+time any
+phone 12303
+chat-timeout 120
+
+system kazovu
+call-login *
+call-password *
+time any
+phone 12304
+chat-timeout 120
+
+system namansi
+call-login *
+call-password *
+time any
+phone 12305
+chat-timeout 120

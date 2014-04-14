@@ -1,4 +1,5 @@
 - hosts: district
   roles:
     - base
+    - radio
 #    - emr

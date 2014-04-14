@@ -2,8 +2,7 @@
 namansi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2210 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
 [clinic-link]
-kirando ansible_ssh_host=127.0.0.1 ansible_ssh_port=2211 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
-ansible_sudo_pass=vagrant
+kirando ansible_ssh_host=127.0.0.1 ansible_ssh_port=2211 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
 [district-link]
 nkasi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant

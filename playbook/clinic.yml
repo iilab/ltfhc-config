@@ -1,4 +1,5 @@
 - hosts: clinic
   roles:
     - base
+    - radio
 #    - emr

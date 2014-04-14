@@ -1,0 +1,40 @@
+---
+- name: Installs sensord
+  apt: pkg=sensord state=present
+  sudo: yes
+
+- name: Installs lm-sensors
+  apt: pkg=lm-sensors state=present
+  sudo: yes
+
+- name: Installs git
+  apt: pkg=git state=present
+  sudo: yes
+
+- name: Installs collectd-utils
+  apt: pkg=collectd-utils state=present
+  sudo: yes
+
+- name: Installs dnsmasq
+  apt: pkg=dnsmasq state=present
+  sudo: yes
+
+- name: Installs dnsmasq-utils 
+  apt: pkg=dnsmasq-utils state=present
+  sudo: yes
+
+- name: Installs hostapd
+  apt: pkg=hostapd state=present
+  sudo: yes
+
+- name: Installs nginx
+  apt: pkg=nginx state=present
+  sudo: yes
+
+- name: Installs openvpn
+  apt: pkg=openvpn state=present
+  sudo: yes
+
+- name: Installs ifplugd
+  apt: pkg=ifplugd state=present
+  sudo: yes

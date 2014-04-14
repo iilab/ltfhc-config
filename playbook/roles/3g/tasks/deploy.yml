@@ -1,9 +1,12 @@
 ---
 - name: Installs ppp
-  action: apt pkg=ppp state=present
+  apt: pkg=ppp state=present
+  sudo: yes
 
 - name: Configure ppp options for ZTE USB modem
-  action: copy src=etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+  copy: src=../files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+  sudo: yes
 
 - name: Configure ppp options for airtel provider
-  action: copy src=etc/ppp/peers/airtel dest=/etc/ppp/peers/airtel
+  copy: src=../files/etc/ppp/peers/airtel dest=/etc/ppp/peers/airtel
+  sudo: yes
