@@ -1,2 +1,2 @@
 #!/bin/bash
-ansible all -m ping
+ansible all -m ping -i $1
