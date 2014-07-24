@@ -3,3 +3,4 @@
 library
 reports
 !.gitignore
+!files/.ssh
