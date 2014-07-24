@@ -1,7 +1,0 @@
----
-- include: report.yml tags=report,diagnose
-
-- include: diagnose.yml tags=diagnose
-
-- include: deploy.yml tags=deploy
-
