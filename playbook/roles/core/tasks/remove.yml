@@ -1,0 +1,24 @@
+---
+- name: Delete a folder
+  file: path=/home/${ansible_ssh_user} state=absent
+  sudo: yes
+
+- name: Delete other exra gobiserial folder
+  file: path=/home/{{ansible_ssh_user}}/gobiserial state=absent
+  sudo: yes
+
+- name: Delete other exra gobiserial folder
+  file: path=/home/{{ansible_ssh_user}}/Gobiserial state=absent
+  sudo: yes
+
+- name: Delete junk folder
+  file: path=/home/${{ansible_ssh_user}} state=absent
+  sudo: yes
+
+- name: Removes the docker mess
+  apt: pkg=docker state=absent
+  sudo: yes
+
+- name: Remove gobiserial module
+  raw: dkms remove GobiSerial/2011-07-29-1026 --all
+  sudo: yes

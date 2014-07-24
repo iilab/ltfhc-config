@@ -5,19 +5,23 @@
 auto lo
 iface lo inet loopback
 
-# The primary network interface
 auto wlan0
-iface wlan0 inet static
-       address 192.168.42.1
-       netmask 255.255.255.0
+iface wlan0 inet dhcp
+    wpa-ssid ltfhc
+    wpa-psk lastmile123
 
+#iface wlan0 inet static
+#       address 192.168.42.1
+#       netmask 255.255.255.0
+
+# The primary network interface
 allow-hotplug eth1
 iface eth1 inet dhcp
 
-auto eth0
-iface eth0 inet static
-        address 172.16.99.2
-        netmask 255.255.255.0
+#auto eth0
+#iface eth0 inet static
+#        address 172.16.99.2
+#        netmask 255.255.255.0
 
 auto ppp0
 iface ppp0 inet ppp

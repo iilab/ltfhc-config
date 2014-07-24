@@ -3,24 +3,22 @@
   apt: pkg=uucp state=present
   sudo: yes
 
-- name: Configure ppp options for ZTE USB modem
-  copy: src=../files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
-  sudo: yes
+#write the uucp config
+#- name: View all clinic systems
+#  debug: item
+#  with_items: ${groups.node}
+#  sudo: yes
 
-- name: Configure ppp options for airtel provider
-  copy: src=../files/etc/ppp/peers/airtel dest=/etc/ppp/peers/airtel
-  sudo: yes
+#fatal: [katombo] => with_items expects a list or a set
+#  with_items:
+#  - testuser1
+#  - testuser2
 
-- name: View all clinic systems
-  debug: item
-  with_items: ${groups.clinic}
-  sudo: yes
+#- name: Install systems in call file
+#  lineinfile: dest=/etc/uucp/call line="{{ item }}\tU{{ item }}\t{{ item }}"
+#  with_items: ${groups.node}
+#  sudo: yes
 
-- name: Install systems in call file
-  lineinfile: dest=/etc/uucp/call line="{{ item }}\tU{{ item }}\t{{ item }}"
-  with_items: ${groups.clinic}
-  sudo: yes
-
-- name: Install prod-tcp system in call file
-  lineinfile: dest=/etc/uucp/call line="prod-tcp\tUprod\teeKaecaiw0"  
-  sudo: yes
+#- name: Install prod-tcp system in call file
+#  lineinfile: dest=/etc/uucp/call line="prod-tcp\tUprod\teeKaecaiw0"  
+#  sudo: yes

@@ -1,3 +1,4 @@
+#routing script which chooses the yml file based on tags
 ---
 - include: report.yml tags=report,diagnose
 
@@ -8,3 +9,5 @@
 - include: repair.yml tags=repair
 
 - include: update.yml tags=update
+
+- include: remove.yml tags=remove

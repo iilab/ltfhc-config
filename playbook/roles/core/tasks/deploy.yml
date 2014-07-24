@@ -1,0 +1,154 @@
+#everything not installed with docker
+---
+
+- name: Set hostname
+  hostname: name={{inventory_hostname}}
+  sudo: yes
+
+- name: Install sensord
+  apt: pkg=sensord state=present
+  sudo: yes
+
+- name: Install vim
+  apt: pkg=vim state=present
+  sudo: yes
+
+- name: Install screen
+  apt: pkg=screen state=present
+  sudo: yes
+
+- name: Create ~/.ssh dir
+  file: path=/home/{{ansible_ssh_user}}/.ssh state=directory
+  sudo: yes
+
+- name: Add github.com to known_hosts file
+  copy: src=../files/.ssh/known_hosts dest=/home/{{ansible_ssh_user}}/.ssh/known_hosts owner={{ansible_ssh_user}} group={{ansible_ssh_user}} mode=600 backup=yes
+  sudo: yes
+
+
+##GSM
+#To use a module with DKMS, one places the module installation files (could be source code or binary) in /usr/src/<modulename>-<version>,
+- name: Clone gobiserial from github
+  git: repo=https://github.com/casastorta/gobiserial.git dest=/usr/src/GobiSerial-2011-07-29-1026 accept_hostkey=yes
+  sudo: yes
+
+- name: Clean up file structure for dkms
+  raw: sudo mv /usr/src/GobiSerial-2011-07-29-1026/GobiSerial/* /usr/src/GobiSerial-2011-07-29-1026/
+  sudo: yes
+
+- name: remove emtpy GobiSerial folder from git clone
+  file: path=/usr/src/GobiSerial-2011-07-29-1026/GobiSerial/ state=absent
+  sudo: yes
+
+- name: remove emtpy gobiSerial 
+  file: path=/home/{{ansible_ssh_user}}/gobiserial state=absent
+  sudo: yes  
+
+- name: remove emtpy GobiSerial
+  file: path=/home/{{ansible_ssh_user}}/Gobiserial state=absent
+  sudo: yes    
+
+#Dynamic Kernel Module Support allows one to compile and install kernel modules without recompiling the entire kernel.
+- name: Install dkms
+  apt: pkg=dkms state=present
+  sudo: yes
+
+- name: Build gobiserial module
+  raw: dkms build -m GobiSerial -v 2011-07-29-1026
+  sudo: yes
+
+- name: Install gobiserial module
+  raw: dkms install -m GobiSerial -v 2011-07-29-1026
+  sudo: yes
+
+ #installing gobiserial module requires a reboot to show the following file structure:
+ #ls -la /dev/serial/by-id/
+ #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if02-port0 -> ../../ttyUSB0
+ #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if03-port0 -> ../../ttyUSB1
+
+- name: Install ppp
+  apt: pkg=ppp state=present
+  sudo: yes
+
+# mobile-modem has been replaced by the chatscripts directory
+#- name: Upload mobile-modem config
+#  copy: src=../../../../files/etc/ppp/mobile-modem dest=/etc/chatscripts/mobile-modem
+#  sudo: yes
+
+- name: remove deprecated mobile-modem
+  file: path=/etc/chatscripts/mobile-modem state=absent
+  sudo: yes
+
+- name: Create chatscripts dir
+  file: path=/etc/ppp/chatscripts/ state=directory
+  sudo: yes
+
+- name: Copy over chatscripts for pppd
+  copy: src=../../../../files/etc/ppp/chatscripts/ dest=/etc/ppp/chatscripts/
+  sudo: yes
+
+- name: Upload /etc/ppp/peers folder
+  copy: src=../../../../files/etc/ppp/peers/ dest=/etc/ppp/peers/
+  sudo: yes
+
+- name: Upload options.mobile for pppd
+  copy: src=../../../../files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+  sudo: yes
+
+##Wireless
+- name: Create folder for manually-installed firmware
+  file: path=/usr/local/lib/firmware state=directory
+  sudo: yes
+
+#Device: Atheros AR9271
+#before install: dmesg | grep "firmware"
+#[    4.260660] usb 1-7: firmware: agent aborted loading htc_9271.fw (not found?)
+
+#Install Atheros driver 802.11n for HTC based wireless devicesfrom http://wireless.kernel.org/en/users/Drivers/ath9k_htc
+- name: Install Atheros AR9271 firmware
+  copy: src=../../../../files/firmware/htc_9271.fw dest=/usr/local/lib/firmware/htc_9271.fw
+  sudo: yes
+
+#[    4.173285] usb 1-7: firmware: agent loaded htc_9271.fw into memory
+#[    4.452592] usb 1-7: ath9k_htc: Transferred FW: htc_9271.fw, size: 51272
+#[    4.687621] ath9k_htc 1-7:1.0: ath9k_htc: HTC initialized with 33 credits
+#[    4.876031] ath9k_htc 1-7:1.0: ath9k_htc: FW Version: 1.3
+#[    4.889247] Registered led device: ath9k_htc-phy0
+#[    4.889258] usb 1-7: ath9k_htc: USB layer initialized
+#[    4.889336] usbcore: registered new interface driver ath9k_htc
+
+#sudo iwlist wlan0 scanning | egrep 'Cell |Encryption|Quality|ESSID'
+#          Cell 09 - Address: C2:4A:00:2C:F1:B4
+#                    Quality=46/70  Signal level=-64 dBm  
+#                    Encryption key:on
+#                    ESSID:"ltfhc"
+
+- name: Install wireless-tools
+  apt: pkg=wireless-tools state=present
+  sudo: yes
+
+- name: Install wpa supplicant
+  apt: pkg=wpasupplicant state=present
+  sudo: yes
+
+- name: Upload /etc/network/interfaces config
+  copy: src=../../../../files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
+  sudo: yes
+
+##Docker
+- name: Add docker.io to sources.list
+  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
+  sudo: yes
+
+# Add an Apt signing key, will not download if present
+#- apt_key: id=473041FA url=https://ftp-master.debian.org/keys/archive-key-6.0.asc state=present
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+- name: Add docker.io developer's gpg key
+  apt_key: id=A88D21E9 keyserver=keyserver.ubuntu.com
+  sudo: yes
+
+#last step of core is docker
+# sudo apt-get install -y lxc-docker
+- name: Update apt's cache and install docker
+  apt: pkg=lxc-docker update_cache=yes
+  sudo: yes

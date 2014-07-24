@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 case "$2" in
-  "") echo "Usage: run.sh deploy|diagnose|report|repair|update|backup development|production|tunnel [machine] [output_directory]";;
+  "") echo "Usage: run.sh deploy|diagnose|report|repair|update|backup provisioning|development|production|tunnel [machine] [output_directory]";;
   *) 
     case "$3" in
   	  "") if [[ $OSTYPE == darwin* ]]; 

@@ -1,0 +1,8 @@
+---
+- name: remove ZTE USB modem mess
+  file: path=/etc/ppp/options.mobile state=absent
+  sudo: yes
+
+- name: remove ppp mess
+  file: path=/etc/ppp/peers/airtel state=absent
+  sudo: yes

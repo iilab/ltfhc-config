@@ -1,3 +1,4 @@
+#everything that is needed for the app to function
 ---
 - name: Installs sensord
   apt: pkg=sensord state=present
