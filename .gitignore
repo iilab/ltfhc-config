@@ -1,6 +1,4 @@
-.*
+.vagrant
 *.log
 library
 reports
-!.gitignore
-!files/.ssh
