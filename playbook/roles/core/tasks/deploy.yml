@@ -17,12 +17,20 @@
   apt: pkg=screen state=present
   sudo: yes
 
+- name: Default .screenrc
+  copy: src=files/home/lastmile/.screenrc dest=/home/{{ansible_ssh_user}}/.screenrc owner={{ansible_ssh_user}} group={{ansible_ssh_user}} backup=yes
+  sudo: yes
+
+- name: Default .bash_profile starting screen
+  copy: src=files/home/lastmile/.bash_profile dest=/home/{{ansible_ssh_user}}/.bash_profile owner={{ansible_ssh_user}} group={{ansible_ssh_user}} backup=yes
+  sudo: yes
+
 - name: Create ~/.ssh dir
   file: path=/home/{{ansible_ssh_user}}/.ssh state=directory
   sudo: yes
 
 - name: Add github.com to known_hosts file
-  copy: src=../files/.ssh/known_hosts dest=/home/{{ansible_ssh_user}}/.ssh/known_hosts owner={{ansible_ssh_user}} group={{ansible_ssh_user}} mode=600 backup=yes
+  copy: src=files/.ssh/known_hosts dest=/home/{{ansible_ssh_user}}/.ssh/known_hosts owner={{ansible_ssh_user}} group={{ansible_ssh_user}} mode=600 backup=yes
   sudo: yes
 
 
@@ -70,6 +78,10 @@
   apt: pkg=ppp state=present
   sudo: yes
 
+- name: Install wvdial
+  apt: pkg=wvdial state=present
+  sudo: yes
+
 # mobile-modem has been replaced by the chatscripts directory
 #- name: Upload mobile-modem config
 #  copy: src=../../../../files/etc/ppp/mobile-modem dest=/etc/chatscripts/mobile-modem
@@ -84,15 +96,15 @@
   sudo: yes
 
 - name: Copy over chatscripts for pppd
-  copy: src=../../../../files/etc/ppp/chatscripts/ dest=/etc/ppp/chatscripts/
+  copy: src=files/etc/ppp/chatscripts/ dest=/etc/ppp/chatscripts/
   sudo: yes
 
 - name: Upload /etc/ppp/peers folder
-  copy: src=../../../../files/etc/ppp/peers/ dest=/etc/ppp/peers/
+  copy: src=files/etc/ppp/peers/ dest=/etc/ppp/peers/
   sudo: yes
 
 - name: Upload options.mobile for pppd
-  copy: src=../../../../files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+  copy: src=files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
   sudo: yes
 
 ##Wireless
@@ -106,7 +118,7 @@
 
 #Install Atheros driver 802.11n for HTC based wireless devicesfrom http://wireless.kernel.org/en/users/Drivers/ath9k_htc
 - name: Install Atheros AR9271 firmware
-  copy: src=../../../../files/firmware/htc_9271.fw dest=/usr/local/lib/firmware/htc_9271.fw
+  copy: src=files/firmware/htc_9271.fw dest=/usr/local/lib/firmware/htc_9271.fw
   sudo: yes
 
 #[    4.173285] usb 1-7: firmware: agent loaded htc_9271.fw into memory
@@ -132,7 +144,7 @@
   sudo: yes
 
 - name: Upload /etc/network/interfaces config
-  copy: src=../../../../files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
+  copy: src=files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
   sudo: yes
 
 ##Docker
