@@ -14,7 +14,7 @@ case "$2" in
 		    else script -c "ansible-playbook -i $SCRIPTPATH/hosts/$2 $SCRIPTPATH/playbook/site.yml -t $1 -l $3" /dev/null 2>&1 | tee $SCRIPTPATH/$1.log;
 		    fi;;
        	 *) if [[ $OSTYPE == darwin* ]]; 
-		    then script -q /dev/null ansible-playbook -i $SCRIPTPATH/hosts/$2 $SCRIPTPATH/playbook/site.yml -t $2 -l $3 2>&1 | tee $4/$1.log;
+		    then script -q /dev/null ansible-playbook -i $SCRIPTPATH/hosts/$2 $SCRIPTPATH/playbook/site.yml -t $1 -l $3 2>&1 | tee $4/$1.log;
 			else script -c "ansible-playbook -i $SCRIPTPATH/hosts/$2 $SCRIPTPATH/playbook/site.yml -t $1 -l $3" /dev/null 2>&1 | tee $4/$1.log;
 			fi;;
         esac
