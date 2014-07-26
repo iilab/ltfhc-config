@@ -10,45 +10,82 @@
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
-[clinic-node]
+[tz-clinic-node]
+namansi modem_self_address=12305 ttySx=ttyS0 ansible_ssh_host=192.168.44.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+izinga modem_self_address=12303 ttySx=ttyS0 ansible_ssh_host=192.168.45.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kasovu modem_self_address=12304 ttySx=ttyS0 ansible_ssh_host=192.168.41.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[tz-clinic-link]
+kirando modem_self_address=12301 ttySx=ttyS0 ansible_ssh_host=192.168.45.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[tz-district-link]
+nkasi modem_self_address=12302 ttySx=ttyS0 ansible_ssh_host=192.168.43.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[tz-spare]
+kigoma modem_self_address=12301 ttySx=ttyS0 ansible_ssh_host=192.168.42.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[cd-clinic-node]
 #GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
-katombo ansible_ssh_host=192.168.1.132 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+katombo modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=192.168.1.132 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-kimena ansible_ssh_host=192.168.1.153 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kimena modem_self_address=12405 ttySx=ttyS1 ansible_ssh_host=192.168.1.153 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-wimbi ansible_ssh_host=192.168.1.129 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+wimbi modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=192.168.1.129 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel network service intermittently available from the hilltop behind clinic.
-kitoke ansible_ssh_host=192.168.1.100 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kitoke modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=192.168.1.100 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 #kitoke wired = 192.168.1.109
 #kitoke wireless = 192.168.1.100
 
-[clinic-link]
+[cd-clinic-link]
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel network service.
-kisongo ansible_ssh_host=192.168.1.193 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kisongo modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=192.168.1.193 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
-[district-link]
+[cd-district-link]
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
-kalemie ansible_ssh_host=192.168.1.236 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=192.168.1.236 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [hub]
 #currently empty on purpose
+#ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant       
+
+[tz-node:children]
+tz-clinic-node
+tz-clinic-link
+tz-district-link
+
+[tz-link:children]
+tz-clinic-link
+tz-district-link
+
+[cd-node:children]
+cd-clinic-node
+cd-clinic-link
+cd-district-link
+
+[cd-link:children]
+cd-clinic-link
+cd-district-link
 
 [node:children]
-clinic-node
-clinic-link
-district-link
+cd-clinic-node
+cd-clinic-link
+cd-district-link
+tz-clinic-node
+tz-clinic-link
+tz-district-link
 
 [link:children]
-clinic-link
-district-link
+cd-clinic-link
+cd-district-link
+tz-clinic-link
+tz-district-link
 
 [all:children]
-clinic-node
-clinic-link
-district-link
+tz-node
+cd-node
 hub
 
 [all:vars]
