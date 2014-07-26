@@ -1,10 +1,10 @@
 ---
 
-- name: Grabs custom facts
-  action: ltfhc_facts
+#- name: Grabs custom facts
+#  action: ltfhc_facts
 
-- name: Get syslog log
-  synchronize: src=/var/log/syslog dest={{ report_directory }}/{{ inventory_hostname }}/var/log/syslog mode=pull rsync_path="sudo rsync"
+#- name: Get syslog log
+#  synchronize: src=/var/log/syslog dest={{ report_directory }}/{{ inventory_hostname }}/var/log/syslog mode=pull rsync_path="sudo rsync"
 
-- name: Get devices log
-  synchronize: src=/var/log/udev dest={{ report_directory }}/{{ inventory_hostname }}/var/log/udev mode=pull rsync_path="sudo rsync"
+#- name: Get devices log
+#  synchronize: src=/var/log/udev dest={{ report_directory }}/{{ inventory_hostname }}/var/log/udev mode=pull rsync_path="sudo rsync"

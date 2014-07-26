@@ -3,6 +3,6 @@
 
 - include: diagnose.yml tags=diagnose
 
-- include: deploy.yml tags=deploy,current
+- include: deploy.yml tags=deploy
 
 - include: remove.yml tags=remove

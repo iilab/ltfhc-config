@@ -5,12 +5,16 @@
 
 - name: Checks ppp interface
   action: interfaces name=ppp0 iface_type=ppp provider=airtel
+  sudo: yes
 
 - name: Checks ppp service
-  action: service name=pppd state=running enabled=yes
+  action: service name=ppp state=running enabled=yes
+  sudo: yes
   
 - name: Get ppp log
   action: fetch src=/var/log/upstart/networking.log dest=reports/
+  sudo: yes
 
 - name: Get ppp connect error log
   action: fetch src=/var/log/ppp-connect-errors dest=reports/
+  sudo: yes
