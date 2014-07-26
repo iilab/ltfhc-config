@@ -1,0 +1,4 @@
+---
+
+  - name: Display serial state
+	action: command cat /proc/tty/driver/serial

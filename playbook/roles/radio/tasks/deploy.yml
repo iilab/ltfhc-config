@@ -3,22 +3,56 @@
   apt: pkg=uucp state=present
   sudo: yes
 
-#write the uucp config
-#- name: View all clinic systems
+- name: Installs minicom
+  apt: pkg=minicom state=present
+  sudo: yes
+
+- name: Installs mgetty
+  apt: pkg=mgetty state=present
+  sudo: yes
+
+- name: Respawns mgetty on ttyS1
+  lineinfile: dest=/etc/inittab line="T3:23:respawn:/sbin/mgetty -x1 -s 115200 ttyS1"
+  sudo: yes
+
+- name: Initiatise inittab
+  command: init q
+  sudo: yes
+
+# Write the uucp config
+# group_names[2] is XX-node (maybe not always...)
+# groups[group_names[2]] select all nodes from the current XX country
+
+#- name: (Debug) view all clinic systems
 #  debug: item
-#  with_items: ${groups.node}
+#  with_items: groups[group_names[2]]
 #  sudo: yes
 
-#fatal: [katombo] => with_items expects a list or a set
-#  with_items:
-#  - testuser1
-#  - testuser2
+- name: Copy over uucp default config
+  copy: src=files/etc/uucp/ dest=/etc/uucp
+  sudo: yes
 
-#- name: Install systems in call file
-#  lineinfile: dest=/etc/uucp/call line="{{ item }}\tU{{ item }}\t{{ item }}"
-#  with_items: ${groups.node}
-#  sudo: yes
+- name: Clean up template file
+  file: path=/etc/uucp/sys.template state=absent
+  sudo: yes
 
-#- name: Install prod-tcp system in call file
-#  lineinfile: dest=/etc/uucp/call line="prod-tcp\tUprod\teeKaecaiw0"  
-#  sudo: yes
+- name: Install systems in call file
+  lineinfile: 
+    dest=/etc/uucp/call 
+    line="{{ item }}{{'\t'}}U{{ item }}{{'\t'}}{{ item }}"
+  with_items: groups['node']
+  sudo: yes
+
+- name: Install prod-tcp system in call file
+  lineinfile: 
+    dest=/etc/uucp/call 
+    line="prod-tcp{{'\t'}}Uprod{{'\t'}}eeKaecaiw0"  
+  sudo: yes
+
+- name: Create sys file
+  template: src=files/etc/uucp/sys.template dest=/etc/uucp/sys owner=root group=uucp mode=0644
+  sudo: yes
+
+- name: Create port file
+  template: src=files/etc/uucp/port.template dest=/etc/uucp/port owner=root group=uucp mode=0644
+  sudo: yes
