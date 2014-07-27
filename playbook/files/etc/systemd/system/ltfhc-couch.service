@@ -1,0 +1,11 @@
+[Unit]
+Description=LTFHC Couch Service
+
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=/usr/bin/docker -p 443:6984 iilab/ltfhc-couch --name couch 
+
+[Install]
+WantedBy=multi-user.target
