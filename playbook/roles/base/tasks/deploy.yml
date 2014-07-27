@@ -20,7 +20,7 @@
   sudo: yes
 
 - name: install docker
-  apt: pkg=lxc-docker state=present update_cache=true
+  apt: pkg=lxc-docker state=present
   sudo: yes
 
 # Install docker-py
