@@ -35,7 +35,7 @@ kimena modem_self_address=12405 ttySx=ttyS1 ansible_ssh_host=192.168.1.153 ansib
 wimbi modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=192.168.1.129 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel network service intermittently available from the hilltop behind clinic.
-kitoke modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=192.168.1.100 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kitoke modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=192.168.1.109 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 #kitoke wired = 192.168.1.109
 #kitoke wireless = 192.168.1.100
 
