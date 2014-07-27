@@ -25,17 +25,17 @@
 
 # Install docker-py
 
-- name: Clone docker-py repository
-  git: repo=https://github.com/dotcloud/docker-py.git dest=/opt/docker-py
-  sudo: yes
+#- name: Clone docker-py repository
+#  git: repo=https://github.com/dotcloud/docker-py.git dest=/opt/docker-py
+#  sudo: yes
 
-- name: Install python-setuptools
-  apt: pkg=python-setuptools state=present
-  sudo: yes
+#- name: Install python-setuptools
+#  apt: pkg=python-setuptools state=present
+#  sudo: yes
 
-- name: install docker-py
-  command: python setup.py install chdir=/opt/docker-py
-  sudo: yes
+#- name: install docker-py
+#  command: python setup.py install chdir=/opt/docker-py
+#  sudo: yes
 
 ## Install LTFHC Docker sources and build images
 
