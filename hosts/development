@@ -1,28 +1,62 @@
-[clinic-node]
-namansi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2210 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+[tz-clinic-node]
+namansi modem_self_address=12305 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2210 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
-[clinic-link]
-kirando ansible_ssh_host=127.0.0.1 ansible_ssh_port=2211 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+[tz-clinic-link]
+kirando modem_self_address=12301 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2211 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
-[district-link]
-nkasi ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+[tz-district-link]
+nkasi modem_self_address=12302 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+
+[cd-clinic-node]
+#GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
+katombo modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+
+[cd-clinic-link]
+#
+
+[cd-district-link]
+#GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
+kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2221 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
 [hub]
-ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant  
+#currently empty on purpose
+#ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant  
+
+[tz-node:children]
+tz-clinic-node
+tz-clinic-link
+tz-district-link
+
+[tz-link:children]
+tz-clinic-link
+tz-district-link
+
+[cd-node:children]
+cd-clinic-node
+cd-clinic-link
+cd-district-link
+
+[cd-link:children]
+cd-clinic-link
+cd-district-link
 
 [node:children]
-clinic-node
-clinic-link
-district-link
+cd-clinic-node
+cd-clinic-link
+cd-district-link
+tz-clinic-node
+tz-clinic-link
+tz-district-link
 
 [link:children]
-clinic-link
-district-link
+cd-clinic-link
+cd-district-link
+tz-clinic-link
+tz-district-link
 
 [all:children]
-clinic-node
-clinic-link
-district-link
+tz-node
+cd-node
 hub
 
 [all:vars]

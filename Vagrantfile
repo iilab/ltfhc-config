@@ -2,10 +2,12 @@
 # vi: set ft=ruby :
 
 hosts = {
-  "namansi" => ["192.168.42.1", "2210", "ffuenf\/ubuntu-13.10-server-amd64"],
-  "kirando" => ["192.168.43.1", "2211", "ffuenf\/ubuntu-13.04-server-amd64"],
-  "nkasi" => ["192.168.44.1", "2212", "ffuenf\/ubuntu-13.10-server-amd64"],
-  "ltfhc" => ["192.168.100.1", "2213", "ffuenf\/ubuntu-13.10-server-amd64"]
+  "katombo" => ["192.168.52.1", "2220", "ffuenf\/debian-7.5.0-amd64"],
+  "kalemie" => ["192.168.51.1", "2221", "ffuenf\/debian-7.5.0-amd64"]
+#  "namansi" => ["192.168.42.1", "2210", "ffuenf\/ubuntu-13.10-server-amd64"],
+#  "kirando" => ["192.168.43.1", "2211", "ffuenf\/ubuntu-13.04-server-amd64"],
+#  "nkasi" => ["192.168.44.1", "2212", "ffuenf\/ubuntu-13.10-server-amd64"],
+#  "ltfhc" => ["192.168.100.1", "2213", "ffuenf\/ubuntu-13.10-server-amd64"]
 }
 
 Vagrant.configure("2") do |config|
