@@ -9,14 +9,14 @@ nkasi modem_self_address=12302 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 
 
 [cd-clinic-node]
 #GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
-katombo modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+katombo modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2322 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
 [cd-clinic-link]
 #
 
 [cd-district-link]
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
-kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2221 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2321 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
 
 [hub]
 #currently empty on purpose
