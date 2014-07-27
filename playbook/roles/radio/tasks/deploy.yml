@@ -20,12 +20,16 @@
   sudo: yes
 
 # Write the uucp config
-# group_names[2] is XX-node (maybe not always...)
-# groups[group_names[2]] select all nodes from the current XX country
+# select all nodes 
 
-#- name: (Debug) view all clinic systems
+#- name: (Debug) group_names[2]
 #  debug: item
-#  with_items: groups[group_names[2]]
+#  with_items: group_names
+#  sudo: yes
+
+#- name: (Debug) select all nodes from the current XX country ?
+#  debug: item
+#  with_items: groups[group_names[2][0]]
 #  sudo: yes
 
 - name: Copy over uucp default config
@@ -42,6 +46,7 @@
     line="{{ item }}{{'\t'}}U{{ item }}{{'\t'}}{{ item }}"
   with_items: groups['node']
   sudo: yes
+  tags: now
 
 - name: Install prod-tcp system in call file
   lineinfile: 
@@ -70,6 +75,6 @@
   sudo: yes
 
 - name: Initialise modem
-  command: /usr/sbin/pppd -d -detach file /etc/ppp/options.radio connect "/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/radio-modem-init.chat"
+  command: "/usr/sbin/pppd -d file /etc/ppp/options.radio init '/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/radio-modem-init.chat'"
   ignore_errors: yes
   sudo: yes
