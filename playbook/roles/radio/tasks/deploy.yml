@@ -46,7 +46,6 @@
     line="{{ item }}{{'\t'}}U{{ item }}{{'\t'}}{{ item }}"
   with_items: groups['node']
   sudo: yes
-  tags: now
 
 - name: Install prod-tcp system in call file
   lineinfile: 

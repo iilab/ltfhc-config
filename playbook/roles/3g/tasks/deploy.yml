@@ -39,18 +39,10 @@
   raw: dkms install -m GobiSerial -v 2011-07-29-1026
   sudo: yes
 
- #installing gobiserial module requires a reboot to show the following file structure:
- #ls -la /dev/serial/by-id/
- #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if02-port0 -> ../../ttyUSB0
- #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if03-port0 -> ../../ttyUSB1
-
-- name: Install ppp
-  apt: pkg=ppp state=present
-  sudo: yes
-
-- name: Install wvdial
-  apt: pkg=wvdial state=present
-  sudo: yes
+#installing gobiserial module requires a reboot to show the following file structure:
+#ls -la /dev/serial/by-id/
+#lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if02-port0 -> ../../ttyUSB0
+#lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if03-port0 -> ../../ttyUSB1
 
 # mobile-modem has been replaced by the chatscripts directory
 #- name: Upload mobile-modem config

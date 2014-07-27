@@ -64,3 +64,11 @@
 - name: Installs ifplugd
   apt: pkg=ifplugd state=present
   sudo: yes
+
+- name: Install ppp
+  apt: pkg=ppp state=present
+  sudo: yes
+
+- name: Install wvdial
+  apt: pkg=wvdial state=present
+  sudo: yes
