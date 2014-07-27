@@ -1,5 +1,7 @@
 ---
+
+- name: Clone emr application
+  git: repo={{item}} state=installed
+
 - name: Installs emr application
   action: apt pkg={{item}} state=installed
-  with_items:
-    - couchdb

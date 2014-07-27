@@ -47,17 +47,12 @@
   docker_image: path="/opt/ltfhc-docker/ltfhc-couch" name="iilab/ltfhc-couch" state=build
   sudo: yes
 
-## Start ltfhc-couch (remove and run if present)
-
-- name: Check ltfhc-couch
-  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=present
-  register: ltfhc_couch
-  sudo: yes
+## Remove ltfhc-couch if present
 
 - name: Remove ltfhc-couch
   docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=absent
-  when: not ltfhc_couch.changed
   sudo: yes
+  tags: now
 
 #- name: Start ltfhc-couch
 #  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=running
@@ -66,9 +61,17 @@
 - name: Install ltfhc-couch as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
+  tags: now
+
+- name: Reload service file
+  command: systemctl --system daemon-reload
+  sudo: yes
+  tags: now
 
 - name: Start service
   service: name=ltfhc-couch enabled=yes state=started
+  sudo: yes
+  tags: now
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list

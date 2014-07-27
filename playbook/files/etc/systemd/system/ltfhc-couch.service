@@ -5,7 +5,8 @@ After=docker.service
 Requires=docker.service
 
 [Service]
-ExecStart=/usr/bin/docker -p 443:6984 iilab/ltfhc-couch --name couch 
+ExecStart=/bin/bash -c '/usr/bin/docker start -a couch || /usr/bin/docker run -i -t -d --privileged -p 443:6984 --name couch iilab/ltfhc-couch'
+ExecStop=/usr/bin/docker kill couch
 
 [Install]
 WantedBy=multi-user.target
