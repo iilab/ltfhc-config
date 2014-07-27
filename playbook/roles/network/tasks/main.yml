@@ -1,0 +1,12 @@
+---
+- include: report.yml tags=report
+
+- include: diagnose.yml tags=diagnose
+
+- include: deploy.yml tags=deploy
+
+- include: mode_wirelessap.yml tags=mode_wirelessap
+
+- include: mode_wirelessclient.yml tags=mode_wirelessclient
+
+- include: remove.yml tags=remove

@@ -56,3 +56,20 @@
 - name: Create port file
   template: src=files/etc/uucp/port.template dest=/etc/uucp/port owner=root group=uucp mode=0644
   sudo: yes
+
+- name: Create chatscripts dir
+  file: path=/etc/ppp/chatscripts/ state=directory
+  sudo: yes
+
+- name: Create chat file to initialise 3212
+  template: src=files/etc/ppp/chatscripts/radio-modem-init.chat.template dest=/etc/ppp/chatscripts/radio-modem-init.chat
+  sudo: yes
+
+- name: Create option file to initialise 3212
+  template: src=files/etc/ppp/options.radio.template dest=/etc/ppp/options.radio
+  sudo: yes
+
+- name: Initialise modem
+  command: /usr/sbin/pppd -d -detach file /etc/ppp/options.radio connect "/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/radio-modem-init.chat"
+  ignore_errors: yes
+  sudo: yes

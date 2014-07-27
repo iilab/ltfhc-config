@@ -1,41 +1,73 @@
 #everything that is needed for the app to function
 ---
-- name: Installs sensord
-  apt: pkg=sensord state=present
+
+## Docker
+
+- name: Check that https transport for apt is enabled
+  apt: pkg=apt-transport-https state=present
   sudo: yes
 
-- name: Installs lm-sensors
-  apt: pkg=lm-sensors state=present
+- name: add the docker repository key
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=0xDF4FD13717AAD7D6 state=present
   sudo: yes
 
-- name: Installs git
-  apt: pkg=git state=present
+- name: add the test docker repository - currently the get repository is not working
+  apt_repository: repo='deb https://test.docker.io/ubuntu docker main' state=present
   sudo: yes
 
-- name: Installs collectd-utils
-  apt: pkg=collectd-utils state=present
+- name: remove the get docker repository
+  apt_repository: repo='deb https://get.docker.io/ubuntu docker main' state=absent
   sudo: yes
 
-- name: Installs dnsmasq
-  apt: pkg=dnsmasq state=present
+- name: install docker
+  apt: pkg=lxc-docker state=present update_cache=true
   sudo: yes
 
-- name: Installs dnsmasq-utils 
-  apt: pkg=dnsmasq-utils state=present
+# Install docker-py
+
+- name: Clone docker-py repository
+  git: repo=https://github.com/dotcloud/docker-py.git dest=/opt/docker-py
   sudo: yes
 
-- name: Installs hostapd
-  apt: pkg=hostapd state=present
+- name: Install python-setuptools
+  apt: pkg=python-setuptools state=present
   sudo: yes
 
-- name: Installs nginx
-  apt: pkg=nginx state=present
+- name: install docker-py
+  command: python setup.py install chdir=/opt/docker-py
   sudo: yes
 
-- name: Installs openvpn
-  apt: pkg=openvpn state=present
+## Install LTFHC Docker sources and build images
+
+- name: Clone ltfhc-docker master repository
+  git: repo=https://github.com/iilab/ltfhc-docker.git dest=/opt/ltfhc-docker
   sudo: yes
 
-- name: Installs ifplugd
-  apt: pkg=ifplugd state=present
-  sudo: yes
+- name: Build ltfhc-couch images
+  docker_image: path="/opt/ltfhc-docker/ltfhc-couch" name="iilab/ltfhc-couch" state=build
+
+## Start ltfhc-couch
+
+- name: Start ltfhc-couch
+  docker: image=ltfhc-couch name=couch ports=493:6984
+
+#- name: Add docker.io to sources.list
+#  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
+#  sudo: yes
+
+# Add an Apt signing key, will not download if present
+#- apt_key: id=473041FA url=https://ftp-master.debian.org/keys/archive-key-6.0.asc state=present
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
+#- name: Add docker.io developer's gpg key
+#  apt_key: id=A88D21E9 keyserver=keyserver.ubuntu.com
+#  sudo: yes
+
+# sudo apt-get install -y lxc-docker
+#- name: Update apt's cache and install docker
+#  apt: pkg=lxc-docker update_cache=yes
+#  sudo: yes
+
+## CouchDB SSL
+
+
+

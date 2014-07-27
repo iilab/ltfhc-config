@@ -1,4 +1,3 @@
 - hosts: link
   roles:
     - 3g
-#    - emr    

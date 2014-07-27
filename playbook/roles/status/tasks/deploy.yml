@@ -1,0 +1,15 @@
+# Component needed to inform about the status of the box
+---
+
+- name: Install sensord
+  apt: pkg=sensord state=present
+  sudo: yes
+
+- name: Installs lm-sensors
+  apt: pkg=lm-sensors state=present
+  sudo: yes
+
+- name: Installs collectd-utils
+  apt: pkg=collectd-utils state=present
+  sudo: yes
+

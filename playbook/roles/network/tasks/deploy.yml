@@ -1,0 +1,66 @@
+#everything not installed with docker
+---
+
+- name: Set hostname
+  hostname: name={{inventory_hostname}}
+  sudo: yes
+
+##Wireless
+- name: Create folder for manually-installed firmware
+  file: path=/usr/local/lib/firmware state=directory
+  sudo: yes
+
+#Device: Atheros AR9271
+#before install: dmesg | grep "firmware"
+#[    4.260660] usb 1-7: firmware: agent aborted loading htc_9271.fw (not found?)
+
+#Install Atheros driver 802.11n for HTC based wireless devicesfrom http://wireless.kernel.org/en/users/Drivers/ath9k_htc
+- name: Install Atheros AR9271 firmware
+  copy: src=files/firmware/htc_9271.fw dest=/usr/local/lib/firmware/htc_9271.fw
+  sudo: yes
+
+#[    4.173285] usb 1-7: firmware: agent loaded htc_9271.fw into memory
+#[    4.452592] usb 1-7: ath9k_htc: Transferred FW: htc_9271.fw, size: 51272
+#[    4.687621] ath9k_htc 1-7:1.0: ath9k_htc: HTC initialized with 33 credits
+#[    4.876031] ath9k_htc 1-7:1.0: ath9k_htc: FW Version: 1.3
+#[    4.889247] Registered led device: ath9k_htc-phy0
+#[    4.889258] usb 1-7: ath9k_htc: USB layer initialized
+#[    4.889336] usbcore: registered new interface driver ath9k_htc
+
+#sudo iwlist wlan0 scanning | egrep 'Cell |Encryption|Quality|ESSID'
+#          Cell 09 - Address: C2:4A:00:2C:F1:B4
+#                    Quality=46/70  Signal level=-64 dBm  
+#                    Encryption key:on
+#                    ESSID:"ltfhc"
+
+- name: Install wireless-tools
+  apt: pkg=wireless-tools state=present
+  sudo: yes
+
+- name: Install wpa supplicant
+  apt: pkg=wpasupplicant state=present
+  sudo: yes
+
+- name: Upload /etc/network/interfaces config
+  copy: src=files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
+  sudo: yes
+
+- name: Installs dnsmasq
+  apt: pkg=dnsmasq state=present
+  sudo: yes
+
+- name: Installs dnsmasq-utils 
+  apt: pkg=dnsmasq-utils state=present
+  sudo: yes
+
+- name: Configure dnsmasq
+  lineinfile: dest=/etc/dnsmasq.conf line="address=/www.health/192.168.42.1"
+  sudo: yes
+
+- name: Installs hostapd
+  apt: pkg=hostapd state=present
+  sudo: yes
+
+- name: Installs ifplugd
+  apt: pkg=ifplugd state=present
+  sudo: yes

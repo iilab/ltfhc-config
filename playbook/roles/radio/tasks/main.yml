@@ -1,6 +1,6 @@
 ---
 - include: report.yml tags=report
 
-- include: deploy.yml tags=deploy,current
+- include: deploy.yml tags=deploy
 
 - include: remove.yml tags=remove

@@ -1,13 +1,83 @@
-#installs the relevant modules for the 3g
+##GSM
+#To use a module with DKMS, one places the module installation files (could be source code or binary) in /usr/src/<modulename>-<version>,
 ---
-- name: Installs ppp
+
+- name: Install linux headers
+  apt: pkg=linux-headers-3.2.0-4-amd64 state=present
+  sudo: yes
+
+- name: Clone gobiserial from github
+  git: repo=https://github.com/casastorta/gobiserial.git dest=/usr/src/GobiSerial-2011-07-29-1026 accept_hostkey=yes
+  sudo: yes
+
+- name: Clean up file structure for dkms
+  raw: sudo mv /usr/src/GobiSerial-2011-07-29-1026/GobiSerial/* /usr/src/GobiSerial-2011-07-29-1026/
+  sudo: yes
+
+- name: remove emtpy GobiSerial folder from git clone
+  file: path=/usr/src/GobiSerial-2011-07-29-1026/GobiSerial/ state=absent
+  sudo: yes
+
+- name: remove emtpy gobiSerial 
+  file: path=/home/{{ansible_ssh_user}}/gobiserial state=absent
+  sudo: yes  
+
+- name: remove emtpy GobiSerial
+  file: path=/home/{{ansible_ssh_user}}/Gobiserial state=absent
+  sudo: yes    
+
+#Dynamic Kernel Module Support allows one to compile and install kernel modules without recompiling the entire kernel.
+- name: Install dkms
+  apt: pkg=dkms state=present
+  sudo: yes
+
+- name: Build gobiserial module
+  raw: dkms build -m GobiSerial -v 2011-07-29-1026
+  sudo: yes
+
+- name: Install gobiserial module
+  raw: dkms install -m GobiSerial -v 2011-07-29-1026
+  sudo: yes
+
+ #installing gobiserial module requires a reboot to show the following file structure:
+ #ls -la /dev/serial/by-id/
+ #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if02-port0 -> ../../ttyUSB0
+ #lrwxrwxrwx 1 root root 13 Apr  8 14:56 usb-Foxconn_Novatel_Wireless_Gobi3000-if03-port0 -> ../../ttyUSB1
+
+- name: Install ppp
   apt: pkg=ppp state=present
   sudo: yes
 
-- name: Configure ppp options for ZTE USB modem
-  copy: src=../files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+- name: Install wvdial
+  apt: pkg=wvdial state=present
   sudo: yes
 
-- name: Configure ppp options for airtel provider
-  copy: src=../files/etc/ppp/peers/airtel dest=/etc/ppp/peers/airtel
+# mobile-modem has been replaced by the chatscripts directory
+#- name: Upload mobile-modem config
+#  copy: src=../../../../files/etc/ppp/mobile-modem dest=/etc/chatscripts/mobile-modem
+#  sudo: yes
+
+- name: remove deprecated mobile-modem
+  file: path=/etc/chatscripts/mobile-modem state=absent
   sudo: yes
+
+- name: Create chatscripts dir
+  file: path=/etc/ppp/chatscripts/ state=directory
+  sudo: yes
+
+- name: Copy over chatscripts for pppd
+  copy: src=files/etc/ppp/chatscripts/ dest=/etc/ppp/chatscripts/
+  sudo: yes
+
+- name: Upload /etc/ppp/peers folder
+  copy: src=files/etc/ppp/peers/ dest=/etc/ppp/peers/
+  sudo: yes
+
+- name: Upload options.mobile for pppd
+  copy: src=files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
+  sudo: yes
+
+- name: Installs openvpn
+  apt: pkg=openvpn state=present
+  sudo: yes
+
