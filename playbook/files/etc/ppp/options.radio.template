@@ -1,0 +1,9 @@
+/dev/{{ ttySx }}
+921600
+lock
+crtscts
+modem
+passive
+novj
+noauth
+debug

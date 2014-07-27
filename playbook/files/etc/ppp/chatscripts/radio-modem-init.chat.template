@@ -1,0 +1,5 @@
+'OK' 'AT&I={{modem_self_address}}'
+'OK' 'ATE0'
+'OK' 'AT%M1'
+'OK' 'AT&A1'
+'OK' 'AT&W'

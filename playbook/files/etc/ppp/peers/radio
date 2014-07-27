@@ -1,0 +1,2 @@
+file /etc/ppp/options.radio
+connect "/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/radio-modem-init.chat"
