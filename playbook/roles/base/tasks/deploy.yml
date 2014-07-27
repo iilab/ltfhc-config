@@ -25,17 +25,17 @@
 
 # Install docker-py
 
-#- name: Clone docker-py repository
-#  git: repo=https://github.com/dotcloud/docker-py.git dest=/opt/docker-py
-#  sudo: yes
+- name: Clone docker-py repository
+  git: repo=https://github.com/docker/docker-py.git dest=/opt/docker-py
+  sudo: yes
 
-#- name: Install python-setuptools
-#  apt: pkg=python-setuptools state=present
-#  sudo: yes
+- name: Install python-setuptools
+  apt: pkg=python-setuptools state=present
+  sudo: yes
 
-#- name: install docker-py
-#  command: python setup.py install chdir=/opt/docker-py
-#  sudo: yes
+- name: install docker-py
+  command: python setup.py install chdir=/opt/docker-py
+  sudo: yes
 
 ## Install LTFHC Docker sources and build images
 
@@ -45,11 +45,13 @@
 
 - name: Build ltfhc-couch images
   docker_image: path="/opt/ltfhc-docker/ltfhc-couch" name="iilab/ltfhc-couch" state=build
+  sudo: yes
 
 ## Start ltfhc-couch
 
 - name: Start ltfhc-couch
-  docker: image=ltfhc-couch name=couch ports=493:6984
+  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984
+  sudo: yes
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
