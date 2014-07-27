@@ -1,14 +1,22 @@
 #everything not installed with docker
 ---
 
+- name: Install sudo
+  apt: pkg=sudo state=present
+
+- name: Update apt cache
+  apt: update_cache=yes
+  sudo: yes  
+
 ## Systemd
 
 - name: Install Systemd for managing docker and job scheduling
   apt: pkg=systemd state=present
   sudo: yes
 
+# http://regex101.com/r/mO9zX3/1
 - name: Install systemd in Grub
-  replace: dest=/etc/default/grub regexp='^GRUB_CMDLINE_LINUX=""$' replace='GRUB_CMDLINE_LINUX="init=/bin/systemd"'
+  lineinfile: dest=/etc/default/grub 'regexp=^GRUB_CMDLINE_LINUX=\"((?!.*?init=/bin/systemd).*?)\"$' 'line=GRUB_CMDLINE_LINUX="\1 init=/bin/systemd"' state=present backrefs=yes
   register: updated_grub
   sudo: yes
 
@@ -22,7 +30,9 @@
   when: updated_grub.changed
   sudo: yes
 
-#- name: Wait until the virtual machine stop ie. ssh port stop responding
+# from http://stackoverflow.com/questions/22534033/how-can-i-use-ansible-playbook-to-reboot-a-ubuntu-server
+# this bit doesn't work
+# - name: Wait until the virtual machine stop ie. ssh port stop responding
 #  local_action: wait_for host={{ansible_ssh_host}} port={{ansible_ssh_port}} state=stopped
 #  sudo: false
 
