@@ -23,6 +23,10 @@
   apt: pkg=lxc-docker state=present update_cache=true
   sudo: yes
 
+- name: Run docker as a service
+  service: name=docker enabled=yes state=started
+  sudo: yes
+
 # Install docker-py
 
 - name: Clone docker-py repository
