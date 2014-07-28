@@ -73,7 +73,7 @@
   tags: now
 
 - name: Restart service
-  service: name=ltfhc-couch enabled=yes state=restart
+  service: name=ltfhc-couch enabled=yes state=restarted
   sudo: yes
   tags: now
 
