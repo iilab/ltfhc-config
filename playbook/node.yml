@@ -3,6 +3,8 @@
     - core
     - network
     - radio
+    - 3g
     - base
     - status
+
 #    - emr
