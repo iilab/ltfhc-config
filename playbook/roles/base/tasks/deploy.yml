@@ -56,7 +56,6 @@
 - name: Remove ltfhc-couch
   docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=absent
   sudo: yes
-  tags: now
 
 #- name: Start ltfhc-couch
 #  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=running
@@ -65,15 +64,13 @@
 - name: Install ltfhc-couch as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
-  tags: now
 
 - name: Reload service file
   command: systemctl --system daemon-reload
   sudo: yes
-  tags: now
 
 - name: Restart service
-  service: name=ltfhc-couch enabled=yes state=restarted
+  service: name=ltfhc-couch.service enabled=yes state=restarted
   sudo: yes
   tags: now
 
