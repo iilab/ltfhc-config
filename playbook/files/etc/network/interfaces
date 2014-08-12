@@ -18,10 +18,10 @@ iface wlan0 inet dhcp
 allow-hotplug eth1
 iface eth1 inet dhcp
 
-#auto eth0
-#iface eth0 inet static
-#        address 172.16.99.2
-#        netmask 255.255.255.0
+auto eth0
+iface eth0 inet static
+        address 172.16.99.1
+        netmask 255.255.255.0
 
 auto ppp0
 iface ppp0 inet ppp

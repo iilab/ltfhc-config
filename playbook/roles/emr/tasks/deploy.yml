@@ -1,7 +1,42 @@
 ---
 
+
+- name: Add backports for node.js
+  apt_repository: repo='deb http://ftp.us.debian.org/debian wheezy-backports main' state=present
+  sudo: yes
+  tags: now
+
+- name: Install node.js
+  apt: pkg=nodejs state=present update_cache=true
+  sudo: yes
+  tags: now
+
+- name: Install nodejs-legacy (needed to run node as an executable)
+  apt: pkg=nodejs-legacy state=present
+  sudo: yes
+  tags: now
+
+- name: Install npm
+  shell: curl --insecure https://www.npmjs.org/install.sh | bash creates=/usr/bin/npm
+  sudo: yes
+  tags: now
+
+- name: Install kanso
+  command: npm install -g kanso creates=/usr/bin/kanso
+  sudo: yes
+  tags: now
+
 - name: Clone emr application
-  git: repo={{item}} state=installed
+  git: repo=https://github.com/iilab/ltfhc-next.git dest=/opt/ltfhc-next
+  sudo: yes
+  tags: now
+
+- name: Install .kansorc
+  copy: src=files/.kansorc dest=/opt/ltfhc-next/.kansorc
+  sudo: yes
+  tags: now
 
 - name: Installs emr application
-  action: apt pkg={{item}} state=installed
+  command: kanso push chdir=/opt/ltfhc-next
+  sudo: yes
+  tags: now

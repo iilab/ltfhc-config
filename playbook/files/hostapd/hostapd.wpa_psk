@@ -1,0 +1,5 @@
+network={
+	ssid="health"
+	#psk="ltfhchealth"
+	psk=902c1165f39c117288b86c39673372e5486851660892fdd40774221f259e23b8
+}
