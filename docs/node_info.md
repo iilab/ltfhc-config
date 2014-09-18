@@ -2,6 +2,26 @@
 
 # TZ
 
+## IP / MAC Addresses
+
+ * kigoma 
+   - LAN 1: eth1 / 192.168.1.100 / 00:1f:f2:07:c3:f2 
+   - LAN 2: eth0 / 172.16.99.1 / 00:1f:f2:07:58:fd
+
+   - Wifi on the far right
+   - 3G in the middle
+
+ * kasovu
+   - LAN 1: 
+   - LAN 2: eth0 / 172.16.99.1 / 00:1f:f2:07:58:b9
+
+   - Wifi on the far right
+   - 3G in the middle
+
+ # kirando
+   - LAN 1: eth1 / 172.16.99.1
+   - LAN 2: eth0 / 192.168.45.1 / ( br0 / 192.168.42.1 )
+
 # DRC
 
 ## Channel Frequencies
