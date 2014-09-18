@@ -47,6 +47,11 @@ kisongo modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=192.168.1.193 ansi
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
 kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=192.168.1.236 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
+
+#bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=192.168.168.170 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=192.168.1.103 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
 [hub]
 #currently empty on purpose
 #ltfhc ansible_ssh_host=127.0.0.1 ansible_ssh_port=2213 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant       
