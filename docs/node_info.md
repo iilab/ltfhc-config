@@ -2,6 +2,24 @@
 
 # TZ
 
+## Channel Frequencies
+
+Voice 1 - 6113 Upper sideband (USB)
+Voice 2 - 6980 Lower sideband (LSB)
+Voice 3 - 5796 LSB 
+Voice 4 - 9116 LSB 
+Voice 5 - 4525 LSB 
+Voice 6 - 12541 USB
+Voice 7 - 6418.5 USB
+
+Data A - 4,240KHz USB
+Data B - 5,425.5KHz USB
+Data C - 6,325KHz USB
+Data D - 8025KHz USB
+Data E - 12,125.5KHz USB
+Data F - 15,950KHz USB
+Data G - 21,850KHz USB
+
 ## IP / MAC Addresses
 
  * kigoma 
@@ -28,13 +46,11 @@
 
 Channel name / Channel Frequency / Sideband
 
-Ch 1 		 / 6113 Hz           / USB
-Ch 2		 / 6980 Hz 			 / LSB
-Ch 3 		 / 5796 Hz 			 / LSB 
-Ch 4 		 / 9116 Hz 			 / LSB 
-Ch 5 		 / 4525 Hz 			 / LSB 
-Ch 6 		 / 12541 Hz 		 / USB
-Ch 7 		 / 6418.5 Hz 		 / USB
+Voice 1 / 4525KHz / LSB
+Voice 2 / 5280KHz / USB/LSB
+Voice 3 / 5796KHz / LSB
+Voice 4 / 6984KHz / LSB
+Voice 5 / 9116KHz / LSB
 
 ## IP / MAC Addresses
 
