@@ -11,8 +11,17 @@
   apt: pkg=mgetty state=present
   sudo: yes
 
-- name: Respawns mgetty on ttyS1
-  lineinfile: dest=/etc/inittab line="T3:23:respawn:/sbin/mgetty -x1 -s 115200 ttyS1"
+# deprecated with move to systemd
+#- name: Respawns mgetty on ttyS1
+#  lineinfile: dest=/etc/inittab line="T3:23:respawn:/sbin/mgetty -x1 -s 115200 ttyS1"
+#  sudo: yes
+
+- name: Install modified serial-mgetty@.service
+  copy: src=files/system/serial-mgetty@.service dest=/lib/systemd/system/
+  sudo: yes
+
+- name: Install mgetty on ttyS1
+  file: src=/lib/systemd/system/serial-mgetty@.service dest=/etc/systemd/system/getty.target.wants/serial-mgetty@ttyS1.service owner=root group=root state=link
   sudo: yes
 
 - name: Initiatise inittab
