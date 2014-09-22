@@ -61,6 +61,21 @@
 #  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=running
 #  sudo: yes
 
+# Loop file created with
+#
+# dd if=/dev/urandom of=/var/lib/ltfhc-data bs=1M count=5000
+# losetup /dev/loop0 /var/lib/ltfhc-data 
+# cryptsetup luksFormat /dev/loop0
+# cryptsetup luksOpen /dev/loop0 ltfhc-data
+# mkfs.ext4 /dev/mapper/ltfhc-data
+# mkdir /mnt/ltfhc-data
+# mount /dev/mapper/ltfhc-data /mnt/ltfhc-data
+
+# Then partition mounted with empty couchdb and master accounts created (root, deploy, jun)
+
+
+# - name: Install ltfhc-data empty encrypted loop file
+
 - name: Install ltfhc-couch as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
