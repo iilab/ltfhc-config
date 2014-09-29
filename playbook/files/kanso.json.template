@@ -1,0 +1,53 @@
+{
+	"name": "emr",
+	"version": "0.4.2",
+	"description": "Medical Record for LTFHC",
+	"clinic": "{{inventory_hostname}}",
+	"zone":  "{{ltfhc_zone}}",
+	"type": "{{ltfhc_type}}",
+	"country": "{{ltfhc_country}}",
+	"attachments": ["static", "schema"],
+	"load": "lib/app",
+	"modules": ["lib", "views"],
+	"dust": {
+		"templates": "templates"
+	},
+	"duality": {
+		"base_template": "base.html"
+	},
+	"less": {
+		"compress": true,
+		"compile": ["static/css/style.less", "static/css/app.less", "static/css/spreadsheet.less"],
+		"remove_from_attachments": true
+	},
+	"dependencies": {
+		"attachments": null,
+		"modules": null,
+		"properties": null,
+		"db": null,
+		"less-precompiler": null,
+		"duality": ">=0.0.18",
+		"dust": null,
+		"duality-dust": null,
+		"duality-contrib-session": null,
+		"select2": null,
+		"jsDump": null,
+		"emr-country-preprocessor": null,
+		"git-info": null,
+		"showdown": null,
+		"couch-fakerequest": null,
+		"underscore-string": null,
+		"users": null,
+		"cookies": null,
+		"moment": ">=2.5.0",
+		"moment-timezone": ">=0.0.3",
+		"locale": null,
+		"kujua-utils": null,
+		"garden-app-support": null,
+		"bootstrap": null,
+		"font-awesome": null,
+		"jquery-ui": null,
+		"alpacajs": null,
+		"ltfhc-branding": ">=0.0.2"
+	}
+}
