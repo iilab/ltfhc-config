@@ -26,10 +26,6 @@ blocking NO
 # 4. Modem is data only (not fax):
 data-only YES
 modem-type DATA
-# 5. Define owner, group and permissions on device:
-port-owner uucp
-port-group dialout
-port-mode  660
 # 6. Define chat strings for codan 9002:
 init-chat  "" ATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
 force-init-chat  "" \d\d\d+++\d\d\dATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
