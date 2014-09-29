@@ -24,6 +24,10 @@
   file: src=/lib/systemd/system/serial-mgetty@.service dest=/etc/systemd/system/getty.target.wants/serial-mgetty@ttyS1.service owner=root group=root state=link
   sudo: yes
 
+- name: Configure mgetty
+  copy: src=files/etc/mgetty/mgetty.config dest=/etc/mgetty/mgetty.config
+  sudo: yes
+
 - name: Initiatise inittab
   command: init q
   sudo: yes
@@ -68,6 +72,10 @@
 
 - name: Create port file
   template: src=files/etc/uucp/port.template dest=/etc/uucp/port owner=root group=uucp mode=0644
+  sudo: yes
+
+- name: Create passwd file
+  template: src=files/etc/uucp/passwd.template dest=/etc/uucp/passwd owner=root group=dialout mode=0640
   sudo: yes
 
 - name: Create chatscripts dir

@@ -13,7 +13,12 @@
 - name: Install Systemd for managing docker and job scheduling
   apt: pkg=systemd state=present
   sudo: yes
+  tags: 040to050
 
+- name: Install Sysstat
+  apt: pkg=sysstat state=present
+  sudo: yes
+  tags: 050to051
 # http://regex101.com/r/mO9zX3/1
 - name: Install systemd in Grub
   lineinfile: dest=/etc/default/grub 'regexp=^GRUB_CMDLINE_LINUX=\"((?!.*?init=/bin/systemd).*?)\"$' 'line=GRUB_CMDLINE_LINUX="\1 init=/bin/systemd"' state=present backrefs=yes

@@ -6,7 +6,7 @@
 #		Try that first before changing this file.
 #
 dialer codan
-chat "" ATH\r\d\c OK\r ATZ\r\d\c OK\r ATD\D CONNECT
+chat "" ATH\r\d\c OK\r ATZ\r\d\c OK\r ATD\D CONNECT\W300
 chat-fail RING
 chat-fail NO\sCARRIER
 chat-fail ERROR

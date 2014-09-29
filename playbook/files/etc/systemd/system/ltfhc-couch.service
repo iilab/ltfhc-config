@@ -9,7 +9,8 @@ Restart=on-failure
 RestartSec=10
 ExecStartPre=-/usr/bin/docker kill couch
 ExecStartPre=-/usr/bin/docker rm couch
-ExecStart=/usr/bin/docker run --privileged -p 443:6984 -v /mnt/ltfhc-data:/usr/local/var/lib/couchdb --name couch iilab/ltfhc-couch
+ExecStart=/usr/bin/docker run --privileged -p 443:6984 -v /var/log/couchdb:/usr/local/var/log/couchdb -v /etc/couchdb:/usr/local/etc/couchdb -v /mnt/ltfhc-data:/usr/local/var/lib/couchdb --name couch iilab/ltfhc-couch
+
 ExecStop=/usr/bin/docker stop couch
 
 [Install]

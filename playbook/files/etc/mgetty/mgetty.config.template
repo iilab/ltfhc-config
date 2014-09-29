@@ -1,0 +1,40 @@
+# ----- global section -----
+#
+# In this section, you put the global defaults, per-port stuff is below
+
+fido-send-emsi no
+
+debug 5
+speed 9600
+issue-file /etc/issue.mgetty
+
+port-owner uucp
+port-group uucp
+port-mode 0664
+
+port ttyUSB0
+# 1. Set maximum logging:
+debug 9
+# 2. Define serial device/speed:
+speed 9600
+# note: 9002 modem is DTE on a null modem cable:
+ignore-carrier TRUE
+# 3. Identify as a modem (not a direct serial line):
+direct NO
+autobauding NO
+blocking NO
+# 4. Modem is data only (not fax):
+data-only YES
+modem-type DATA
+# 5. Define owner, group and permissions on device:
+port-owner uucp
+port-group dialout
+port-mode  660
+# 6. Define chat strings for codan 9002:
+init-chat  "" ATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
+force-init-chat  "" \d\d\d+++\d\d\dATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
+rings  1
+# note: explicit expect RING is not needed; mgetty assumes it
+answer-chat  "" ATA CONNECT \c
+answer-chat-timeout  80
+ 

@@ -8,12 +8,12 @@
 [Unit]
 Description=Serial Getty on %I
 BindTo=dev-%i.device
-After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service
+#After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service
 
 # If additional gettys are spawned during boot then we should make
 # sure that this is synchronized before getty.target, even though
 # getty.target didn't actually pull it in.
-Before=getty.target
+#Before=getty.target
 
 [Service]
 Environment=TERM=vt100

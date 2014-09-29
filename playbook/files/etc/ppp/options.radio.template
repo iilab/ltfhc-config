@@ -1,5 +1,5 @@
 /dev/{{ ttySx }}
-921600
+115200
 lock
 crtscts
 modem
