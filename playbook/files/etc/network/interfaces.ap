@@ -5,14 +5,13 @@
 auto lo
 iface lo inet loopback
 
-auto wlan0
-iface wlan0 inet dhcp
-    wpa-ssid ltfhc
-    wpa-psk lastmile123
+#auto wlan0
+#iface wlan0 inet dhcp
+#    wpa-ssid ltfhc
+#    wpa-psk lastmile123
 
+#auto wlan0
 #iface wlan0 inet static
-#       address 192.168.42.1
-#       netmask 255.255.255.0
 
 # The primary network interface
 auto allow-hotplug eth1
@@ -26,3 +25,12 @@ iface eth0 inet static
 auto ppp0
 iface ppp0 inet ppp
         provider airtel
+        
+auto br0
+iface br0 inet static
+        address 192.168.42.1
+        netmask 255.255.255.0
+#        bridge_ports eth1 
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0

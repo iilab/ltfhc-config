@@ -3,7 +3,7 @@
 
 - include: diagnose.yml tags=diagnose
 
-- include: deploy.yml tags=deploy
+- include: deploy.yml tags=deploy,network
 
 - include: mode_wirelessap.yml tags=mode_wirelessap
 
