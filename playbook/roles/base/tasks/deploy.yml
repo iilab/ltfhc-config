@@ -45,16 +45,19 @@
 
 - name: Clone ltfhc-docker master repository
   git: repo=https://github.com/iilab/ltfhc-docker.git dest=/opt/ltfhc-docker
+  tags: couchdb
   sudo: yes
 
 - name: Build ltfhc-couch images
   docker_image: path="/opt/ltfhc-docker/ltfhc-couch" name="iilab/ltfhc-couch" state=build
+  tags: couchdb
   sudo: yes
 
 ## Remove ltfhc-couch if present
 
-- name: Remove ltfhc-couch
+- name: Remove couch container
   docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=absent
+  tags: couchdb
   sudo: yes
 
 #- name: Start ltfhc-couch
@@ -62,31 +65,65 @@
 #  sudo: yes
 
 # Loop file created with
-#
-# dd if=/dev/urandom of=/var/lib/ltfhc-data bs=1M count=5000
+# needs apt-get install cryptsetup
+# 
+# dd if=/dev/urandom of=/var/lib/ltfhc-data bs=1M count=500
 # losetup /dev/loop0 /var/lib/ltfhc-data 
 # cryptsetup luksFormat /dev/loop0
 # cryptsetup luksOpen /dev/loop0 ltfhc-data
 # mkfs.ext4 /dev/mapper/ltfhc-data
+# systemctl stop ltfhc-couch.service
 # mkdir /mnt/ltfhc-data
 # mount /dev/mapper/ltfhc-data /mnt/ltfhc-data
 
 # Then partition mounted with empty couchdb and master accounts created (root, deploy, jun)
 
+# then 
+# systemctl stop ltfhc-couch.service
+# umount /mnt/ltfhc-data
+# cryptsetup luksClose /dev/mapper/ltfhc-data
+# losetup -d /dev/loop0
+
+# Copy empty container to secure location for provisioning.
+
+# Mounting the partition should be
+# losetup /dev/loop0 /var/lib/ltfhc-data 
+# cryptsetup luksOpen /dev/loop0 ltfhc-data
+# mount /dev/mapper/ltfhc-data /mnt/ltfhc-data
 
 # - name: Install ltfhc-data empty encrypted loop file
 
 - name: Install ltfhc-couch as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
+  tags: couchconfig
+
+- name: Create /etc/couchdb
+  file: path=/etc/couchdb state=directory
+  sudo: yes
+  tags: couchconfig
+
+- name: Install couchdb default configuration file
+  copy: src=files/etc/couchdb/default.ini dest=/etc/couchdb/default.ini
+  sudo: yes
+  tags: couchconfig
+
+- name: Install customized local couchdb configuration file
+  template: src=files/etc/couchdb/local.ini.template dest=/etc/couchdb/local.ini
+  sudo: yes
+  tags: couchconfig
 
 - name: Reload service file
   command: systemctl --system daemon-reload
   sudo: yes
+  tags: couchconfig
 
 - name: Restart service
   service: name=ltfhc-couch.service enabled=yes state=restarted
   sudo: yes
+  tags: 
+    - couchconfig
+    - couchdb
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
