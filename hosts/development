@@ -9,14 +9,24 @@ nkasi modem_self_address=12302 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2212 
 
 [cd-clinic-node]
 #GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
-katombo modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2322 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+katombo ltfhc_zone=kalemie modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2322 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+
+[cd-clinic-node:vars]
+ltfhc_type=clinic
 
 [cd-clinic-link]
 #
 
 [cd-district-link]
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
-kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2321 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+kalemie ltfhc_zone=kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2321 ansible_ssh_user=vagrant ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_sudo_pass=vagrant
+
+#bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=192.168.168.170 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+bujumbura ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=192.168.1.103 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[cd-district-link:vars]
+ltfhc_type=district 
 
 [hub]
 #currently empty on purpose
@@ -27,6 +37,9 @@ tz-clinic-node
 tz-clinic-link
 tz-district-link
 
+[tz-node:vars]
+ltfhc_country=tz
+
 [tz-link:children]
 tz-clinic-link
 tz-district-link
@@ -35,6 +48,9 @@ tz-district-link
 cd-clinic-node
 cd-clinic-link
 cd-district-link
+
+[cd-node:vars]
+ltfhc_country=cd
 
 [cd-link:children]
 cd-clinic-link
@@ -60,4 +76,5 @@ cd-node
 hub
 
 [all:vars]
+vagrant="true"
 report_directory="../reports"
