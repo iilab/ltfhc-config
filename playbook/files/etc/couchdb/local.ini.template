@@ -66,8 +66,8 @@ level = error
 ; httpsd = {couch_httpd, start_link, [https]}
 
 [ssl]
-;cert_file = /full/path/to/server_cert.pem
-;key_file = /full/path/to/server_key.pem
+cert_file = /usr/local/etc/couchdb/health.crt
+key_file = /usr/local/etc/couchdb/health.key
 ;password = somepassword
 ; set to true to validate peer certificates
 verify_ssl_certificates = false
