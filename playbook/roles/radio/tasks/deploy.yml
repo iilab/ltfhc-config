@@ -28,6 +28,10 @@
   template: src=files/etc/mgetty/mgetty.config.template dest=/etc/mgetty/mgetty.config
   sudo: yes
 
+- name: Configure mgetty login
+  copy: src=files/etc/mgetty/login.config dest=/etc/mgetty/login.config
+  sudo: yes
+
 - name: Initiatise inittab
   command: init q
   sudo: yes
