@@ -1,0 +1,1 @@
+20 {{(ltfhc_id * 2) + 20}}  * * *        lastmile /usr/bin/uucp -x1 /var/log/ltfhc/status-$(date +"\%F").log bujumbura'!'~

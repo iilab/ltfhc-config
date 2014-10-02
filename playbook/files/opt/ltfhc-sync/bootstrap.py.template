@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+# Saves the last sequence number in the _changes feed to a _local document 
+# for later retrieval. This only needs to be run once
+
+#Importing modules
+import requests
+import json
+
+changes = "https://localhost/emr_{{ansible_hostname}}/_changes"
+localdoc = "https://localhost/emr_{{ansible_hostname}}/_local/last"
+
+r = requests.get(changes, verify=False)
+data = r.json()
+
+lastseq = data['last_seq']
+
+newdata = {"_id":"_local/last","seq":lastseq}
+
+r = requests.put(localdoc,data=json.dumps(newdata), verify=False)
+
+print r.text

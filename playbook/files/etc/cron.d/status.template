@@ -1,0 +1,1 @@
+10 {{(ltfhc_id * 2) + 20}} * * *        root /opt/ltfhc-status/status.sh > /var/log/ltfhc-status/status-$(date +"\%F").log
