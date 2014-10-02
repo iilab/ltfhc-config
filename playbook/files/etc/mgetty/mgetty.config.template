@@ -27,8 +27,10 @@ blocking NO
 data-only YES
 modem-type DATA
 # 6. Define chat strings for codan 9002:
-init-chat  "" ATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
-force-init-chat  "" \d\d\d+++\d\d\dATH OK AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
+init-chat  "" ATH OK ATZ OK
+# AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
+force-init-chat  "" \d\d\d+++\d\d\dATH OK ATZ OK
+# AT&FE0L0R0&K3S0=0&A=0&I={{modem_self_address}} OK
 rings  1
 # note: explicit expect RING is not needed; mgetty assumes it
 answer-chat  "" ATA CONNECT \c

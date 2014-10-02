@@ -1,7 +1,7 @@
 '' 'ATE1'
 'OK' 'AT&I={{modem_self_address}}'
 'OK' 'ATV1'
-'OK' 'AT&C=11,12,13,14,15'
+'OK' 'AT&C=12,13,14,15,17'
 'OK' 'AT%M0'
 'OK' 'AT&A1'
 'OK' 'AT&W'
