@@ -20,8 +20,20 @@
   copy: src=files/etc/systemd/system/hostapd.service dest=/etc/systemd/system/hostapd.service
   sudo: yes
 
+- name: Create lthfc-utils directory
+  file: path=/opt/ltfhc-utils state=directory
+  sudo: yes
+
+- name: Install forwarding script
+  copy: src=files/opt/ltfhc-utils/forward.sh dest=/opt/ltfhc-utils/forward.sh mode=755
+  sudo: yes
+
+- name: Install unforwarding script
+  copy: src=files/opt/ltfhc-utils/unforward.sh dest=/opt/ltfhc-utils/unforward.sh mode=755
+  sudo: yes
+
 - name: Reload service file
-  command: systemctl --system daemon-reload
+  shell: systemctl --system daemon-reload
   sudo: yes
 
 - name: Restart networking.service
@@ -35,4 +47,3 @@
 - name: Restart hostapd.service
   service: name=hostapd.service enabled=yes state=restarted
   sudo: yes
-

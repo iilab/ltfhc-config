@@ -8,6 +8,7 @@ Before=network.service
 Type=forking
 PIDFile=/run/hostapd.pid
 ExecStart=/usr/sbin/hostapd -dd -t /etc/hostapd/hostapd.conf -P /run/hostapd.pid -B
+ExecStartPost=/bin/sh -c 'sudo ifup wlan0'
 
 [Install]
 WantedBy=multi-user.target

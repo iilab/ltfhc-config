@@ -1,3 +1,5 @@
+# Wireless Client mode: When the server needs to connect to an existing wireless access point.
+# Wireless Access Point mode: When the server is deployed.
 ---
 - include: report.yml tags=report
 
@@ -5,13 +7,8 @@
 
 - include: deploy.yml tags=deploy,network
 
-# Wireless Client mode: When the server needs to connect to an existing wireless access point.
 - include: mode_wirelessclient.yml tags=mode_wirelessclient
 
-# Wireless Access Point mode: When the server is deployed.
 - include: mode_wirelessap.yml tags=mode_wirelessap
-
-# Wireless Access Point Install mode: When the server is connected to the internet to allow the provisionning of chromebooks.
-- include: mode_wirelessap_install.yml tags=mode_wirelessap_install
 
 - include: remove.yml tags=remove

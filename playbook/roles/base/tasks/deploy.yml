@@ -8,7 +8,7 @@
   sudo: yes
 
 - name: add the docker repository key
-  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=0xDF4FD13717AAD7D6 state=present
+  apt_key: 'keyserver=hkp://keyserver.ubuntu.com:80 id=0xDF4FD13717AAD7D6 state=present'
   sudo: yes
 
 - name: add the test docker repository - currently the get repository is not working
@@ -45,10 +45,12 @@
 
 - name: Clone ltfhc-docker master repository
   git: repo=https://github.com/iilab/ltfhc-docker.git dest=/opt/ltfhc-docker
-  tags: couchdb
+  tags: 
+    - couchdb
+    - portal
   sudo: yes
 
-- name: Build ltfhc-couch images
+- name: Build ltfhc-couch image
   docker_image: path="/opt/ltfhc-docker/ltfhc-couch" name="iilab/ltfhc-couch" state=build
   tags: couchdb
   sudo: yes
@@ -59,6 +61,7 @@
   docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=absent
   tags: couchdb
   sudo: yes
+
 
 #- name: Start ltfhc-couch
 #  docker: image="iilab/ltfhc-couch" name=couch ports=443:6984 state=running
@@ -98,6 +101,18 @@
   sudo: yes
   tags: couchconfig
 
+- name: Install ltfhc-portal as a system ctl service
+  copy: src=files/etc/systemd/system/ltfhc-portal.service dest=/etc/systemd/system/
+  sudo: yes
+  tags: 
+   - portal
+   - blah
+
+- name: Install portal site files
+  copy: src=files/opt/ltfhc-portal/ dest=/opt/ltfhc-portal
+  sudo: yes
+  tags: portal
+
 - name: Create /etc/couchdb
   file: path=/etc/couchdb state=directory
   sudo: yes
@@ -116,14 +131,21 @@
 - name: Reload service file
   command: systemctl --system daemon-reload
   sudo: yes
-  tags: couchconfig
+  tags: 
+   - couchconfig
+   - portal
 
-- name: Restart service
+- name: Restart couchdb service
   service: name=ltfhc-couch.service enabled=yes state=restarted
   sudo: yes
   tags: 
     - couchconfig
     - couchdb
+
+- name: Restart portal service
+  service: name=ltfhc-portal.service enabled=yes state=restarted
+  sudo: yes
+  tags: portal
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
