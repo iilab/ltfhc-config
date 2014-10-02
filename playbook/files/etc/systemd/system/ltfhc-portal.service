@@ -1,0 +1,13 @@
+[Unit]
+Description=iilab LTFHC captive portal
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=on-failure
+RestartSec=10
+RootDirectory=/opt/ltfhc-portal
+ExecStart=/usr/bin/python -m CGIHTTPServer 80
+
+[Install]
+WantedBy=multi-user.target

@@ -106,7 +106,6 @@
   sudo: yes
   tags: 
    - portal
-   - blah
 
 - name: Install portal site files
   copy: src=files/opt/ltfhc-portal/ dest=/opt/ltfhc-portal
@@ -143,7 +142,7 @@
     - couchdb
 
 - name: Restart portal service
-  service: name=ltfhc-portal.service enabled=yes state=restarted
+  service: name=ltfhc-portal.service enabled=yes state=stopped
   sudo: yes
   tags: portal
 
