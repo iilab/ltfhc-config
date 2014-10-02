@@ -48,7 +48,7 @@
 - name: Upload /etc/network/interfaces config
   copy: src=files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
   sudo: yes
-  when: vagrant == "true"
+  when: vagrant != "true"
 
 - name: Installs dnsmasq
   apt: pkg=dnsmasq state=present
