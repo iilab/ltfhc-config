@@ -1,0 +1,18 @@
+---
+
+- name: Create sync scripts directory
+  file: path=/opt/ltfhc-sync state=directory
+  sudo: yes
+  tags: status
+
+- name: Install and customise bootstrap.py
+  template: src=files/opt/ltfhc-sync/bootstrap.py.template dest=/opt/ltfhc-sync/bootstrap.py mode=744
+  sudo: yes
+
+- name: Install and customise source.py
+  template: src=files/opt/ltfhc-sync/source.py.template dest=/opt/ltfhc-sync/source.py mode=744
+  sudo: yes
+
+- name: Install and customise target.py
+  template: src=files/opt/ltfhc-sync/target.py.template dest=/opt/ltfhc-sync/target.py mode=744
+  sudo: yes

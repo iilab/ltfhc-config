@@ -1,0 +1,5 @@
+---
+- name: Installs emr application
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - couchdb
