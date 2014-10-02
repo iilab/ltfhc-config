@@ -27,10 +27,10 @@ ltfhc_type=clinic
 [tz-district-link]
 nkasi modem_self_address=12302 ttySx=ttyS0 ansible_ssh_host=172.16.99.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
-[tz-spare]
+[tz-admin-link]
 kigoma modem_self_address=12301 ttySx=ttyS0 ansible_ssh_host=172.16.99.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
-[tz-spare:vars]
+[tz-admin-link:vars]
 ltfhc_type=clinic
 
 ###
@@ -96,6 +96,7 @@ ltfhc_type=clinic
 tz-clinic-node
 tz-clinic-link
 tz-district-link
+tz-admin-link
 
 [tz-node:vars]
 ltfhc_country=tz
@@ -103,6 +104,7 @@ ltfhc_country=tz
 [tz-link:children]
 tz-clinic-link
 tz-district-link
+tz-admin-link
 
 [cd-node:children]
 cd-clinic-node
@@ -117,18 +119,12 @@ cd-clinic-link
 cd-district-link
 
 [node:children]
-cd-clinic-node
-cd-clinic-link
-cd-district-link
-tz-clinic-node
-tz-clinic-link
-tz-district-link
+tz-node
+cd-node
 
 [link:children]
-cd-clinic-link
-cd-district-link
-tz-clinic-link
-tz-district-link
+tz-link
+cd-link
 
 [all:children]
 tz-node

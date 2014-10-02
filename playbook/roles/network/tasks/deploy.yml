@@ -41,9 +41,9 @@
   apt: pkg=wpasupplicant state=present
   sudo: yes
 
-- name: Install bridge-utils
-  apt: pkg=bridge-utils state=present
-  sudo: yes
+#- name: Install bridge-utils
+#  apt: pkg=bridge-utils state=present
+#  sudo: yes
 
 - name: Upload /etc/network/interfaces config
   copy: src=files/etc/network/interfaces dest=/etc/network/interfaces backup=yes
