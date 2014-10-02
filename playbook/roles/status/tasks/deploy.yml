@@ -13,3 +13,18 @@
   apt: pkg=collectd-utils state=present
   sudo: yes
 
+- name: Create status.sh directory
+  file: path=/opt/ltfhc-status state=directory
+  sudo: yes
+  tags: status
+
+- name: Install status.sh script
+  copy: src=files/opt/ltfhc-status/status.sh dest=/opt/ltfhc-status/status.sh mode=755
+  sudo: yes
+  tags: status
+
+- name: Install and customise status cron job
+  template: src=files/etc/cron.d/status.template dest=/etc/cron.d/status
+  sudo: yes
+  tags: status
+
