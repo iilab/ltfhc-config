@@ -69,10 +69,10 @@ ltfhc_type=clinic
 [cd-district-link:vars]
 ltfhc_type=district 
 
-[cd-spare]
-bujumbura ltfhc_id=99 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmileansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+[de-spare]
+bujumbura ltfhc_id=99 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
-[cd-spare:vars]
+[de-spare:vars]
 ltfhc_type=clinic 
 
 
@@ -121,6 +121,7 @@ cd-district-link
 [node:children]
 tz-node
 cd-node
+de-spare
 
 [link:children]
 tz-link
