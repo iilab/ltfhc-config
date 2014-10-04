@@ -1,1 +1,1 @@
-10 {{(ltfhc_id * 2) + 20}} * * *        root /opt/ltfhc-status/status.sh > /var/log/ltfhc-status/status-$(date +"\%F").log
+10 {{(ltfhc_id * 2) + 20}} * * *        root /opt/ltfhc-status/status.sh > /var/log/ltfhc/{{ansible_hostname}}-status-$(date +"\%F").log

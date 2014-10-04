@@ -1,4 +1,6 @@
 .vagrant
 *.log
+*.crt
+*.key
 library
 reports

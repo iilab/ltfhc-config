@@ -1,6 +1,29 @@
 #everything that is needed for the app to function
 ---
 
+###
+#
+# Upgrade tasks 
+#  - 040to050 : Ubuntu Raring with custom container to docker.
+# 
+#
+#
+
+- name: Install old-release sources.list for unmaintained raring.
+  copy: src=files/etc/apt/sources.list dest=/etc/apt/sources.list
+  sudo: yes
+  tags: 040to045
+
+- name: Deactivate nginx
+  service: name=nginx enabled=no state=stopped  
+  sudo: yes
+  tags: 040to045
+
+- name: Deactivate clinic (old django app)
+  service: name=clinic enabled=no state=stopped  
+  sudo: yes
+  tags: 040to045
+
 ## Docker
 
 - name: Check that https transport for apt is enabled
@@ -12,12 +35,16 @@
   sudo: yes
 
 - name: add the test docker repository - currently the get repository is not working
-  apt_repository: repo='deb https://test.docker.io/ubuntu docker main' state=present
+  apt_repository: repo='deb https://get.docker.io/ubuntu docker main' state=present
   sudo: yes
 
-- name: remove the get docker repository
-  apt_repository: repo='deb https://get.docker.io/ubuntu docker main' state=absent
-  sudo: yes
+#- name: add the test docker repository - currently the get repository is not working
+#  apt_repository: repo='deb https://test.docker.io/ubuntu docker main' state=present
+#  sudo: yes
+
+#- name: remove the get docker repository
+#  apt_repository: repo='deb https://get.docker.io/ubuntu docker main' state=absent
+#  sudo: yes
 
 - name: install docker
   apt: pkg=lxc-docker state=present update_cache=true

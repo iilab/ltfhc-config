@@ -3,16 +3,32 @@
 - name: Create sync scripts directory
   file: path=/opt/ltfhc-sync state=directory
   sudo: yes
-  tags: status
 
 - name: Install and customise bootstrap.py
   template: src=files/opt/ltfhc-sync/bootstrap.py.template dest=/opt/ltfhc-sync/bootstrap.py mode=744
   sudo: yes
 
-- name: Install and customise source.py
-  template: src=files/opt/ltfhc-sync/source.py.template dest=/opt/ltfhc-sync/source.py mode=744
+- name: Install and customise diff.py
+  template: src=files/opt/ltfhc-sync/diff.py.template dest=/opt/ltfhc-sync/diff.py mode=744
   sudo: yes
 
-- name: Install and customise target.py
-  template: src=files/opt/ltfhc-sync/target.py.template dest=/opt/ltfhc-sync/target.py mode=744
+- name: Install diff.sh script
+  copy: src=files/opt/ltfhc-status/diff.sh dest=/opt/ltfhc-status/diff.sh mode=755
   sudo: yes
+
+- name: Install and customise diff cron job
+  template: src=files/etc/cron.d/diff.template dest=/etc/cron.d/diff
+  sudo: yes
+
+#- name: Install and customise target.py
+#  template: src=files/opt/ltfhc-sync/target.py.template dest=/opt/ltfhc-sync/target.py mode=744
+#  sudo: yes
+
+- name: Install and customise sync cron job
+  template: src=files/etc/cron.d/sync.template dest=/etc/cron.d/sync
+  sudo: yes
+
+# uux "bujumbura!sh -c '/usr/bin/uustat -a katombo.NB1LqjAAAAkf'>!~/log.txt"
+# doesn't work. Maybe create a shell script with job id in arg.
+
+# Need to try application update and system update via uux.

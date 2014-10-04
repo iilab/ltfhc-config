@@ -13,6 +13,12 @@ kirando modem_self_address=12301 ansible_ssh_host=192.168.42.1 ansible_ssh_user=
 [tz-district-link]
 nkasi modem_self_address=12302 ansible_ssh_host=192.168.42.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
+[tz-admin-link]
+kigoma modem_self_address=12301 ttySx=ttyS0 ansible_ssh_host=192.168.42.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+
+[tz-admin-link:vars]
+ltfhc_type=clinic
+
 ###
 #
 # Democratic Republic of Congo (CD)
@@ -75,6 +81,7 @@ ltfhc_type=clinic
 tz-clinic-node
 tz-clinic-link
 tz-district-link
+tz-admin-link
 
 [tz-node:vars]
 ltfhc_country=tz
@@ -102,6 +109,7 @@ cd-district-link
 tz-clinic-node
 tz-clinic-link
 tz-district-link
+tz-admin-link
 
 [link:children]
 cd-clinic-link

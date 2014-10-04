@@ -73,3 +73,6 @@
   apt: pkg=openvpn state=present
   sudo: yes
 
+#- name: Install openvpn configuration
+
+#- lineinfile: dest=/etc/hosts regexp=^ltfhc-prod line=ltfhc-prod.vpn 10.9.0.1
