@@ -1,1 +1,2 @@
-20 {{(ltfhc_id * 2) + 20}}  * * *        lastmile /usr/bin/uucp -x1 /var/log/ltfhc/status-$(date +"\%F").log bujumbura'!'~
+20 {{(ltfhc_id * 2) + 20}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-status-$(date +"\%F").log kalemie'!'~
+20 {{(ltfhc_id * 2) + 20}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-diff-$(date +"\%F").json kalemie'!'~
