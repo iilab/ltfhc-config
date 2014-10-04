@@ -70,7 +70,7 @@ ltfhc_type=clinic
 ltfhc_type=district 
 
 [de-spare]
-bujumbura ltfhc_id=99 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+bujumbura ltfhc_id=0 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [de-spare:vars]
 ltfhc_type=clinic 
