@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
       machine.vm.network :forwarded_port, guest: 443, host: var[3]
       machine.vm.network :forwarded_port, guest: 5984, host: var[4]
       machine.ssh.port = var[2]
+      config.vm.synced_folder "/home/iilab/LTFHC/ltfhc-next", "/opt/ltfhc-next"
       machine.vm.provider "virtualbox" do |v|
           v.name = name
           v.gui = false
