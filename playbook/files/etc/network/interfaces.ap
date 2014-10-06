@@ -26,4 +26,4 @@ iface eth0 inet static
 
 auto ppp0
 iface ppp0 inet ppp
-        provider airtel
+        provider vodacom
