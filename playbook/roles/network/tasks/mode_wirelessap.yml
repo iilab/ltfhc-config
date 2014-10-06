@@ -12,7 +12,7 @@
   copy: src=files/etc/dnsmasq.conf dest=/etc/dnsmasq.conf
   sudo: yes
 
-- name: Install /etc/network/interfaces for access point mode
+- name: Install /etc/network/interfaces.ap for access point mode
   copy: src=files/etc/network/interfaces.ap dest=/etc/network/interfaces
   sudo: yes
 
@@ -20,21 +20,10 @@
   copy: src=files/etc/systemd/system/hostapd.service dest=/etc/systemd/system/hostapd.service
   sudo: yes
 
-- name: Create lthfc-utils directory
-  file: path=/opt/ltfhc-utils state=directory
-  sudo: yes
-
-- name: Install forwarding script
-  copy: src=files/opt/ltfhc-utils/forward.sh dest=/opt/ltfhc-utils/forward.sh mode=755
-  sudo: yes
-
-- name: Install unforwarding script
-  copy: src=files/opt/ltfhc-utils/unforward.sh dest=/opt/ltfhc-utils/unforward.sh mode=755
-  sudo: yes
-
 - name: Reload service file
   shell: systemctl --system daemon-reload
   sudo: yes
+  when: ltfhc_country == 'cd'
 
 - name: Restart networking.service
   service: name=networking enabled=yes state=restarted

@@ -127,6 +127,7 @@
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
   tags: couchconfig
+  when: ltfhc_country=="cd"
 
 - name: Install ltfhc-portal as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-portal.service dest=/etc/systemd/system/
@@ -143,16 +144,40 @@
   file: path=/etc/couchdb state=directory
   sudo: yes
   tags: couchconfig
+  when: ltfhc_country=="cd"
+  tags: 050to051
+
+- name: Symlink /etc/couchdb for Tanzania
+  file: src=/home/ltfhc-deploy/etc/couchdb dest=/etc/couchdb state=link
+  sudo: yes
+  tags: couchconfig
+  when: ltfhc_country=="tz"
 
 - name: Install couchdb default configuration file
   copy: src=files/etc/couchdb/default.ini dest=/etc/couchdb/default.ini
   sudo: yes
   tags: couchconfig
+  tags: 050to051
 
 - name: Install customized local couchdb configuration file
   template: src=files/etc/couchdb/local.ini.template dest=/etc/couchdb/local.ini
   sudo: yes
   tags: couchconfig
+  tags: 050to051
+
+- name: Install SSL cert file
+  template: src=files/etc/couchdb/health.crt dest=/etc/couchdb/health.crt
+  sudo: yes
+  tags: couchconfig
+  ignore_errors: yes
+  tags: 050to051
+
+- name: Install SSL key file
+  template: src=files/etc/couchdb/health.key dest=/etc/couchdb/health.key
+  sudo: yes
+  tags: couchconfig
+  ignore_errors: yes
+  tags: 050to051
 
 - name: Reload service file
   command: systemctl --system daemon-reload
@@ -160,18 +185,31 @@
   tags: 
    - couchconfig
    - portal
-
+   - 050to051
+  when: ltfhc_country=="cd"
+  
 - name: Restart couchdb service
   service: name=ltfhc-couch.service enabled=yes state=restarted
   sudo: yes
   tags: 
     - couchconfig
     - couchdb
+    - 050to051
+  when: ltfhc_country=="cd"
+
+- name: Restart couchdb service for Tanzania
+  service: name=couchdb enabled=yes state=restarted
+  sudo: yes
+  tags: 
+    - couchconfig
+    - couchdb
+  when: ltfhc_country=="tz"
 
 - name: Restart portal service
   service: name=ltfhc-portal.service enabled=yes state=stopped
   sudo: yes
   tags: portal
+  when: ltfhc_country=="cd"
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list

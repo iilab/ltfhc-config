@@ -9,6 +9,6 @@
 
 - include: mode_wirelessclient.yml tags=mode_wirelessclient
 
-- include: mode_wirelessap.yml tags=mode_wirelessap
+- include: mode_wirelessap.yml tags=mode_wirelessap,050to051
 
 - include: remove.yml tags=remove

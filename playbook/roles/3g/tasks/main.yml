@@ -4,7 +4,7 @@
 
 - include: diagnose.yml tags=diagnose
 
-- include: deploy.yml tags=deploy
+- include: deploy.yml tags=deploy,3g
 
 - include: repair.yml tags=repair
 

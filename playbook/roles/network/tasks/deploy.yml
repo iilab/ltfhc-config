@@ -41,6 +41,18 @@
   apt: pkg=wpasupplicant state=present
   sudo: yes
 
+- name: Create lthfc-utils directory
+  file: path=/opt/ltfhc-utils state=directory
+  sudo: yes
+
+- name: Install forwarding script
+  copy: src=files/opt/ltfhc-utils/forward.sh dest=/opt/ltfhc-utils/forward.sh mode=755
+  sudo: yes
+
+- name: Install unforwarding script
+  copy: src=files/opt/ltfhc-utils/unforward.sh dest=/opt/ltfhc-utils/unforward.sh mode=755
+  sudo: yes
+
 #- name: Install bridge-utils
 #  apt: pkg=bridge-utils state=present
 #  sudo: yes

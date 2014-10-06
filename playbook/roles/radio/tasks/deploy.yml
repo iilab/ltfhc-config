@@ -19,22 +19,27 @@
 - name: Install modified serial-mgetty@.service
   copy: src=files/system/serial-mgetty@.service dest=/lib/systemd/system/
   sudo: yes
+  tags: 050to051
 
 - name: Install mgetty on ttyS1
   file: src=/lib/systemd/system/serial-mgetty@.service dest=/etc/systemd/system/getty.target.wants/serial-mgetty@ttyS1.service owner=root group=root state=link
   sudo: yes
+  tags: 050to051
 
 - name: Configure mgetty
   template: src=files/etc/mgetty/mgetty.config.template dest=/etc/mgetty/mgetty.config
   sudo: yes
+  tags: 050to051
 
 - name: Configure mgetty login
   copy: src=files/etc/mgetty/login.config dest=/etc/mgetty/login.config
   sudo: yes
+  tags: 050to051
 
 - name: Initiatise inittab
   command: init q
   sudo: yes
+  tags: 050to051
 
 # Write the uucp config
 # select all nodes 
@@ -52,10 +57,12 @@
 - name: Copy over uucp default config
   copy: src=files/etc/uucp/ dest=/etc/uucp
   sudo: yes
+  tags: 050to051
 
 - name: Clean up template file
   file: path=/etc/uucp/sys.template state=absent
   sudo: yes
+  tags: 050to051
 
 - name: Install systems in call file
   lineinfile: 
@@ -63,38 +70,47 @@
     line="{{ item }}{{'\t'}}U{{ item }}{{'\t'}}{{ item }}"
   with_items: groups['node']
   sudo: yes
+  tags: 050to051
 
 - name: Install prod-tcp system in call file
   lineinfile: 
     dest=/etc/uucp/call 
     line="prod-tcp{{'\t'}}Uprod{{'\t'}}eeKaecaiw0"  
   sudo: yes
+  tags: 050to051
 
 - name: Create sys file
   template: src=files/etc/uucp/sys.template dest=/etc/uucp/sys owner=root group=uucp mode=0644
   sudo: yes
+  tags: 050to051
 
 - name: Create port file
   template: src=files/etc/uucp/port.template dest=/etc/uucp/port owner=root group=uucp mode=0644
   sudo: yes
+  tags: 050to051
 
 - name: Create passwd file
   template: src=files/etc/uucp/passwd.template dest=/etc/uucp/passwd owner=root group=dialout mode=0640
   sudo: yes
+  tags: 050to051
 
 - name: Create chatscripts dir
   file: path=/etc/ppp/chatscripts/ state=directory
   sudo: yes
+  tags: 050to051
 
 - name: Create chat file to initialise 3212
   template: src=files/etc/ppp/chatscripts/radio-modem-init.chat.template dest=/etc/ppp/chatscripts/radio-modem-init.chat
   sudo: yes
+  tags: 050to051
 
 - name: Create option file to initialise 3212
   template: src=files/etc/ppp/options.radio.template dest=/etc/ppp/options.radio
   sudo: yes
+  tags: 050to051
 
 - name: Initialise modem
   command: "/usr/sbin/pppd -d file /etc/ppp/options.radio init '/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/radio-modem-init.chat'"
   ignore_errors: yes
   sudo: yes
+  tags: 050to051

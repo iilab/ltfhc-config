@@ -28,6 +28,7 @@
 - name: Patch Kanso to allow pushing to self-signed certificate https
   lineinfile: 'dest=/usr/lib/node_modules/kanso/lib/couchdb.js regexp="        rejectUnauthorized: ''false''," insertafter="var request = proto.request" line="        rejectUnauthorized: ''false'',"'
   sudo: yes
+  tags: 050to051
 
 - name: Clone emr application
   git: repo=https://github.com/iilab/ltfhc-next.git dest=/opt/ltfhc-next
@@ -37,13 +38,16 @@
   template: src=files/.kansorc.template dest=/opt/ltfhc-next/.kansorc
   sudo: yes
   tags: now
+  tags: 050to051
 
 - name: Install and customise kanso.json
   template: src=files/kanso.json.template dest=/opt/ltfhc-next/kanso.json
   sudo: yes
   tags: now
+  tags: 050to051
 
 - name: Push emr application
   command: kanso push health chdir=/opt/ltfhc-next
   sudo: yes
   tags: now
+  tags: 050to051
