@@ -35,16 +35,16 @@ kalemie ltfhc_id=1 ltfhc_zone=kalemie modem_self_address=12401 ttySx=ttyS1 ansib
 katondo ltfhc_id=2 ltfhc_zone=kalemie modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=192.168.1.109 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-kimena ltfhc_id=3 ltfhc_zone=kalemie modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kimena ltfhc_id=3 ltfhc_zone=kalemie modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
-katombo ltfhc_id=4 ltfhc_zone=kalemie modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+katombo ltfhc_id=4 ltfhc_zone=kalemie modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel network service intermittently available from the hilltop behind clinic.
 kitoke ltfhc_id=5 ltfhc_zone=kalemie modem_self_address=12405 ttySx=ttyS1 ansible_ssh_host=192.168.1.109 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-wimbi ltfhc_id=6 ltfhc_zone=kalemie modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+wimbi ltfhc_id=6 ltfhc_zone=kalemie modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [cd-clinic-node:vars]
 ltfhc_type=clinic
@@ -55,10 +55,10 @@ ltfhc_type=clinic
 [cd-district-link:vars]
 ltfhc_type=district 
 
-[cd-spare]
-bujumbura ltfhc_id=99 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmileansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+[de-spare]
+bujumbura ltfhc_id=99 ltfhc_zone=bujumbura modem_self_address=12410 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
-[cd-spare:vars]
+[de-spare:vars]
 ltfhc_type=clinic 
 
 ###
@@ -69,7 +69,7 @@ ltfhc_type=clinic
 
 [hub]
 #currently empty on purpose
-#ltfhc ansible_ssh_host=172.16.99.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123  
+#ltfhc ansible_ssh_host=192.168.42.1 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123  
 
 ###
 #
@@ -110,12 +110,14 @@ tz-clinic-node
 tz-clinic-link
 tz-district-link
 tz-admin-link
+de-spare
 
 [link:children]
 cd-clinic-link
 cd-district-link
 tz-clinic-link
 tz-district-link
+de-spare
 
 [all:children]
 tz-node
