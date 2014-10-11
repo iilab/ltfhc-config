@@ -1,0 +1,33 @@
+---
+
+- name: reload systemctl
+  command: systemctl --system daemon-reload
+  sudo: yes
+  tags: 
+   - couchconfig
+   - portal
+   - 050to051
+  when: ltfhc_country=="cd"
+
+- name: restart ltfhc-couch
+  service: name=ltfhc-couch.service enabled=yes state=restarted
+  sudo: yes
+  tags: 
+    - couchconfig
+    - couchdb
+    - 050to051
+  when: ltfhc_country=="cd"
+
+- name: Restart couchdb service for Tanzania
+  service: name=couchdb enabled=yes state=restarted
+  sudo: yes
+  tags: 
+    - couchconfig
+    - couchdb
+  when: ltfhc_country=="tz"
+
+- name: restart ltfhc-portal
+  service: name=ltfhc-portal.service enabled=yes state=stopped
+  sudo: yes
+  tags: portal
+  when: ltfhc_country=="cd"

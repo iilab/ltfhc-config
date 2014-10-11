@@ -126,26 +126,41 @@
 - name: Install ltfhc-couch as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-couch.service dest=/etc/systemd/system/ltfhc-couch.service
   sudo: yes
-  tags: couchconfig
   when: ltfhc_country=="cd"
+  tags: 
+   - couchconfig
+   - 050to051
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
 - name: Install ltfhc-portal as a system ctl service
   copy: src=files/etc/systemd/system/ltfhc-portal.service dest=/etc/systemd/system/
   sudo: yes
   tags: 
    - portal
+  notify: 
+   - reload systemctl
+   - restart ltfhc-portal
 
 - name: Install portal site files
   copy: src=files/opt/ltfhc-portal/ dest=/opt/ltfhc-portal
   sudo: yes
   tags: portal
+  notify: 
+   - reload systemctl
+   - restart ltfhc-portal
 
 - name: Create /etc/couchdb
   file: path=/etc/couchdb state=directory
   sudo: yes
-  tags: couchconfig
   when: ltfhc_country=="cd"
-  tags: 050to051
+  tags: 
+   - couchconfig
+   - 050to051
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
 - name: Symlink /etc/couchdb for Tanzania
   file: src=/home/ltfhc-deploy/etc/couchdb dest=/etc/couchdb state=link
@@ -157,59 +172,45 @@
   copy: src=files/etc/couchdb/default.ini dest=/etc/couchdb/default.ini
   sudo: yes
   tags: couchconfig
-  tags: 050to051
+  tags: 
+   - couchconfig
+   - 050to051
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
 - name: Install customized local couchdb configuration file
   template: src=files/etc/couchdb/local.ini.template dest=/etc/couchdb/local.ini
   sudo: yes
-  tags: couchconfig
-  tags: 050to051
+  tags: 
+   - couchconfig
+   - 050to051
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
 - name: Install SSL cert file
   template: src=files/etc/couchdb/health.crt dest=/etc/couchdb/health.crt
   sudo: yes
-  tags: couchconfig
   ignore_errors: yes
-  tags: 050to051
+  tags: 
+   - couchconfig
+   - 050to051
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
 - name: Install SSL key file
   template: src=files/etc/couchdb/health.key dest=/etc/couchdb/health.key
   sudo: yes
-  tags: couchconfig
   ignore_errors: yes
-  tags: 050to051
-
-- name: Reload service file
-  command: systemctl --system daemon-reload
-  sudo: yes
   tags: 
    - couchconfig
-   - portal
    - 050to051
-  when: ltfhc_country=="cd"
-  
-- name: Restart couchdb service
-  service: name=ltfhc-couch.service enabled=yes state=restarted
-  sudo: yes
-  tags: 
-    - couchconfig
-    - couchdb
-    - 050to051
-  when: ltfhc_country=="cd"
+  notify: 
+   - reload systemctl
+   - restart ltfhc-couch
 
-- name: Restart couchdb service for Tanzania
-  service: name=couchdb enabled=yes state=restarted
-  sudo: yes
-  tags: 
-    - couchconfig
-    - couchdb
-  when: ltfhc_country=="tz"
-
-- name: Restart portal service
-  service: name=ltfhc-portal.service enabled=yes state=stopped
-  sudo: yes
-  tags: portal
-  when: ltfhc_country=="cd"
 
 #- name: Add docker.io to sources.list
 #  raw: echo deb http://get.docker.io/ubuntu docker main | sudo tee /etc/apt/sources.list.d/docker.list
