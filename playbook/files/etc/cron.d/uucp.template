@@ -2,8 +2,7 @@
 # Every hour start the uudemon.hr. To actually poll a remote system,
 # enter its name in /etc/uucp/Poll. You are encouraged to change the "8".
 #
-{{((ltfhc_id * 7)) % 60}} * * * *      uucp    [ -x /usr/lib/uucp/uudemon.hr ] && /usr/lib/uucp/uudemon.hr
-#
+{{((ltfhc_id * 7)) % 60}} * * * *      uucp    [ -x /usr/lib/uucp/uudemon.hr ] && /usr/lib/uucp/#
 # Alternative to adding a system to the (non-standard) /etc/uucp/Poll file:
 # just call uucico here to poll the system directly from cron.
 #
