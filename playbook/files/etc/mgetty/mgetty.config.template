@@ -12,7 +12,7 @@ port-owner uucp
 port-group uucp
 port-mode 0664
 
-port ttyUSB0
+port ttyS1
 # 1. Set maximum logging:
 debug 9
 # 2. Define serial device/speed:
