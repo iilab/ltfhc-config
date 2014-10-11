@@ -3,27 +3,71 @@
 - name: Create sync scripts directory
   file: path=/opt/ltfhc-sync state=directory
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
+
+- name: Create sync data directory
+  file: path=/var/log/ltfhc state=directory
+  sudo: yes
+  tags: 
+    - 050to051
+    - 040to051
 
 - name: Install and customise bootstrap.py
   template: src=files/opt/ltfhc-sync/bootstrap.py.template dest=/opt/ltfhc-sync/bootstrap.py mode=744
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
 
 - name: Install and customise diff.py
   template: src=files/opt/ltfhc-sync/diff.py.template dest=/opt/ltfhc-sync/diff.py mode=744
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
 
 - name: Install diff.sh script
-  copy: src=files/opt/ltfhc-status/diff.sh dest=/opt/ltfhc-status/diff.sh mode=755
+  copy: src=files/opt/ltfhc-sync/diff.sh dest=/opt/ltfhc-sync/diff.sh mode=755
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
+
+- name: Set timezone
+  copy: src=files/etc/timezone dest=/etc/timezone
+  sudo: yes
+
+- name: Set timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+  sudo: yes
+
+- name: Get time from management computer
+  local_action: command date
+  register: local_time
+
+- name: Set time from management computer
+  command: date --set="{{local_time.stdout}}"
+  sudo: yes
+
+- name: Set hardware clock
+  command: hwclock --systohc --utc
+  sudo: yes
+
+- name: Install and customise uucp cron job
+  template: src=files/etc/cron.d/uucp.template dest=/etc/cron.d/uucp
+  sudo: yes
+  tags: 
+    - 050to051
+    - 040to051
 
 - name: Install and customise diff cron job
   template: src=files/etc/cron.d/diff.template dest=/etc/cron.d/diff
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
 
 #- name: Install and customise target.py
 #  template: src=files/opt/ltfhc-sync/target.py.template dest=/opt/ltfhc-sync/target.py mode=744
@@ -32,7 +76,9 @@
 - name: Install and customise sync cron job
   template: src=files/etc/cron.d/sync.template dest=/etc/cron.d/sync
   sudo: yes
-  tags: 050to051
+  tags: 
+    - 050to051
+    - 040to051
 
 # uux "bujumbura!sh -c '/usr/bin/uustat -a katombo.NB1LqjAAAAkf'>!~/log.txt"
 # doesn't work. Maybe create a shell script with job id in arg.

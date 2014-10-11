@@ -6,8 +6,8 @@
 # Version:	@(#)Poll	2.10	19-Dec-1996
 #
 # Example:
-#		schedule alphen	18
-#		poll     alphen	18 19 20 02 03 04 05 06
+schedule        kalemie 19
+poll    kalemie 19 20 21 22 23 00 01 02 03 04 05
 #
 #		Note that every system needs 1 line for schedule AND
 #		1 line for poll. The schedule action only touches an empty
