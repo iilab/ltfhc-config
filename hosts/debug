@@ -46,19 +46,19 @@ kalemie ltfhc_id=1 ltfhc_zone=kalemie modem_self_address=12401 ttySx=ttyS1 ansib
 [cd-clinic-node]
 
 #GSM/GPRS/EDGE/3G: No network service available.
-katondo ltfhc_id=2 ltfhc_zone=kalemie modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+katondo ltfhc_id=2 ltfhc_zone=nyemba modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-kimena ltfhc_id=3 modem_self_address=12405 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kimena ltfhc_id=3 ltfhc_zone=nyemba modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available (5km walk to obtain GSM network signal)
-katombo ltfhc_id=4 modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+katombo ltfhc_id=4 ltfhc_zone=nyemba modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel network service intermittently available from the hilltop behind clinic.
-kitoke ltfhc_id=5 modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kitoke ltfhc_id=5 ltfhc_zone=kalemie modem_self_address=12405 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
-wimbi ltfhc_id=6 modem_self_address=12404 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+wimbi ltfhc_zone=kalemie ltfhc_id=6 modem_self_address=12406 ttySx=ttyS1 ansible_ssh_host=172.16.99.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [cd-clinic-node:vars]
 ltfhc_type=clinic

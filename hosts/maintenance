@@ -27,12 +27,12 @@ ltfhc_type=clinic
 
 [cd-district-link]
 #GSM/GPRS/EDGE/3G: Vodacom & Airtel 3G network service.
-kalemie ltfhc_id=1 ltfhc_zone=kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=192.168.1.236 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+kalemie ltfhc_id=1 ltfhc_zone=kalemie modem_self_address=12401 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 [cd-clinic-node]
 
 #GSM/GPRS/EDGE/3G: No network service available.
-katondo ltfhc_id=2 ltfhc_zone=kalemie modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=192.168.1.109 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
+katondo ltfhc_id=2 ltfhc_zone=kalemie modem_self_address=12402 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
 
 #GSM/GPRS/EDGE/3G: No network service available.
 kimena ltfhc_id=3 ltfhc_zone=kalemie modem_self_address=12403 ttySx=ttyS1 ansible_ssh_host=192.168.42.1 ansible_ssh_port=22 ansible_ssh_user=lastmile ansible_ssh_pass=lastmile123 ansible_sudo_pass=lastmile123
