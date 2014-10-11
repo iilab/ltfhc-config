@@ -1,1 +1,1 @@
-12 {{(ltfhc_id * 2) + 20}}  * * *        root /opt/ltfhc-sync/diff.sh > /var/log/ltfhc/{{ansible_hostname}}-diff-$(date +"\%F").json
+12 {{((ltfhc_id * 1) + 19) % 24}}  * * *        root /opt/ltfhc-sync/diff.sh > /var/log/ltfhc/{{ansible_hostname}}-diff-$(date +"\%F").json

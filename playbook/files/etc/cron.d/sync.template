@@ -1,2 +1,2 @@
-20 {{(ltfhc_id * 2) + 20}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-status-$(date +"\%F").log kalemie'!'~
-20 {{(ltfhc_id * 2) + 20}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-diff-$(date +"\%F").json kalemie'!'~
+20 {{((ltfhc_id * 1) + 19) % 24}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-status-$(date +"\%F").log kalemie'!'~
+20 {{((ltfhc_id * 1) + 19) % 24}}  * * *        root /usr/bin/uucp /var/log/ltfhc/{{ansible_hostname}}-diff-$(date +"\%F").json kalemie'!'~
