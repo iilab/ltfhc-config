@@ -3,36 +3,34 @@
 - name: Install hostapd.conf
   copy: src=files/etc/hostapd/hostapd.conf dest=/etc/hostapd/hostapd.conf
   sudo: yes
+  notify: 
+   - reload systemctl
+   - restart hostapd
 
 - name: Install /etc/default/hostapd
   copy: src=files/etc/default/hostapd dest=/etc/default/hostapd
   sudo: yes
+  notify: 
+   - reload systemctl
+   - restart hostapd
 
 - name: Install /etc/dnsmasq.conf
   copy: src=files/etc/dnsmasq.conf dest=/etc/dnsmasq.conf
   sudo: yes
+  notify: 
+   - reload systemctl
+   - restart dnsmasq
 
 - name: Install /etc/network/interfaces.ap for access point mode
   copy: src=files/etc/network/interfaces.ap dest=/etc/network/interfaces
   sudo: yes
+  notify: 
+   - reload systemctl
+   - restart networking
 
 - name: Install hostapd.service
   copy: src=files/etc/systemd/system/hostapd.service dest=/etc/systemd/system/hostapd.service
   sudo: yes
-
-- name: Reload service file
-  shell: systemctl --system daemon-reload
-  sudo: yes
-  when: ltfhc_country == 'cd'
-
-- name: Restart networking.service
-  service: name=networking enabled=yes state=restarted
-  sudo: yes
-
-- name: Restart dnsmasq.service
-  service: name=dnsmasq.service enabled=yes state=restarted
-  sudo: yes
-
-- name: Restart hostapd.service
-  service: name=hostapd.service enabled=yes state=restarted
-  sudo: yes
+  notify: 
+   - reload systemctl
+   - restart hostapd

@@ -11,19 +11,26 @@ iface lo inet loopback
 #    wpa-psk lastmile123
 
 auto wlan0
-iface wlan0 inet static
-        address 192.168.42.1
-        netmask 255.255.255.0
+iface wlan0 inet manual
 
 # The primary network interface
-auto allow-hotplug eth1
-iface eth1 inet dhcp
+auto eth1
+#iface eth1 inet manual
 
 auto eth0
 iface eth0 inet static
         address 172.16.99.1
         netmask 255.255.255.0
 
-#auto ppp0
-#iface ppp0 inet ppp
-#        provider vodacom
+auto br0
+iface br0 inet static
+        address 192.168.42.1
+        netmask 255.255.255.0
+        bridge_ports eth1 
+        bridge_stp off
+        bridge_fd 0
+        bridge_maxwait 0
+
+auto ppp0
+iface ppp0 inet ppp
+        provider vodacom

@@ -56,18 +56,22 @@
 - name: Create chatscripts dir
   file: path=/etc/ppp/chatscripts/ state=directory
   sudo: yes
+  tags: 3gconfig
 
 - name: Copy over chatscripts for pppd
   copy: src=files/etc/ppp/chatscripts/ dest=/etc/ppp/chatscripts/
   sudo: yes
+  tags: 3gconfig
 
 - name: Upload /etc/ppp/peers folder
   copy: src=files/etc/ppp/peers/ dest=/etc/ppp/peers/
   sudo: yes
+  tags: 3gconfig
 
 - name: Upload options.mobile for pppd
   copy: src=files/etc/ppp/options.mobile dest=/etc/ppp/options.mobile
   sudo: yes
+  tags: 3gconfig
 
 - name: Installs openvpn
   apt: pkg=openvpn state=present

@@ -1,0 +1,18 @@
+---
+
+- name: Reload service file
+  shell: systemctl --system daemon-reload
+  sudo: yes
+  when: ltfhc_country == 'cd'
+
+- name: restart networking
+  service: name=networking enabled=yes state=restarted
+  sudo: yes   
+
+- name: restart dnsmasq
+  service: name=dnsmasq.service enabled=yes state=restarted
+  sudo: yes
+
+- name: restart hostapd
+  service: name=hostapd.service enabled=yes state=restarted
+  sudo: yes
