@@ -216,6 +216,21 @@
    - reload systemctl
    - restart ltfhc-couch
 
+- name: Install snakeoil creates
+  apt: pkg=ssl-cert state=present
+  sudo: yes
+  tags: vagrant
+
+- name: Install snakeoil cert
+  command: creates="/etc/couchdb/health.crt" mv /etc/ssl/certs/ssl-cert-snakeoil.pem /etc/couchdb/health.crt
+  sudo: yes
+  tags: vagrant
+
+- name: Install snakeoil cert
+  command: creates="/etc/couchdb/health.key" mv /etc/ssl/private/ssl-cert-snakeoil.key /etc/couchdb/health.key
+  sudo: yes
+  tags: vagrant
+
 - name: Install SSL cert file
   template: src=files/etc/couchdb/health.crt dest=/etc/couchdb/health.crt
   sudo: yes
