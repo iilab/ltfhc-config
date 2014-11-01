@@ -3,4 +3,4 @@
 
 - include: diagnose.yml tags=diagnose
 
-- include: deploy.yml tags=deploy,current,vagrant,base
+- include: deploy.yml tags=deploy,current,base

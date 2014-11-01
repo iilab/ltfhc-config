@@ -1,2 +1,2 @@
 ---
-- include: deploy.yml tags=deploy,vagrant,emr
+- include: deploy.yml tags=deploy,emr
