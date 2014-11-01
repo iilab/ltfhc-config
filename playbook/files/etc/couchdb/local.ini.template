@@ -110,4 +110,4 @@ www.health = /emr_{{ansible_hostname}}/_design/emr/_rewrite/
 jun = -pbkdf2-6552ee83b06f41570f25464c2567947725ae88ec,ff949dde398716b890210e5ad413a80d,10
 deploy = -pbkdf2-763b50ca2ea0fad8cb61cecfbce073d3e81e45ab,6681e7e66874b6f9063f14ae2dcc8ede,10
 ltfhc = -pbkdf2-d7941a95b2471f6bc73e9c7f1674951c5f9f23d1,4eeb2f5d8750a8b93e33f4821ed65a8d,10
-demo = demo
+demo = -pbkdf2-d909b6c72336f0c259ed2df038ccf39ab80e1fb5,72a7c931d48d0fd5419e63592afff129,10
