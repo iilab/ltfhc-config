@@ -60,7 +60,9 @@
   tags: vagrant
 
 - name: Use get docker script
-  shell: "'curl -sSL https://get.docker.com/ | sh' creates=/usr/bin/docker"
+  shell: curl -sSL https://get.docker.com/ | sh
+  args:
+    creates: /usr/bin/docker
   sudo: yes
   tags: vagrant
 
