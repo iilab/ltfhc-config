@@ -1,6 +1,6 @@
 exports.env = {
     // the default env will be used when you just do "kanso push"
     'default': {
-        db: 'https://deploy:chaiveisai9paifeich4ro0yohTiebie@localhost/emr_{{ansible_hostname}}' 
+        db: 'https://deploy:chaiveisai9paifeich4ro0yohTiebie@127.0.0.1/emr_{{ansible_hostname}}' 
     }
 };
