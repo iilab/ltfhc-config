@@ -1,0 +1,13 @@
+---
+#environment:
+# AUTH: {{ lookup('env','AUTH') }}
+
+ - command: curl -k https://{{ lookup('env','AUTH') }}@{{ lookup('env','SERVER_IP') }}/emr_{{ansible_hostname}}/_local/last
+   register: last_seq
+
+ - fail: msg="Synchronisation is not bootstrapped. Run repair."
+   when: "'missing' in last_seq.stdout"
+
+
+
+# - cmd: /opt/ltfhc-sync/bootstrap.py

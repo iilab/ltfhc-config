@@ -1,0 +1,5 @@
+---
+
+ - command: /opt/ltfhc-sync/bootstrap.py
+   environment:
+    AUTH: "{{ lookup('env','AUTH') }}"

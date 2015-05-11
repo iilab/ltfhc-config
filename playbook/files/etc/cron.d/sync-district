@@ -1,0 +1,1 @@
+12 07  * * *        root /opt/ltfhc-sync/sync-district.sh > /var/log/ltfhc/{{ansible_hostname}}-sync-district-$(date +"\%F").log

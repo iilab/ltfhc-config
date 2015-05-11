@@ -7,14 +7,14 @@
   action: interfaces name=ppp0 iface_type=ppp provider=airtel
   sudo: yes
 
-- name: Checks ppp service
-  action: service name=ppp state=running enabled=yes
-  sudo: yes
-  
+#- name: Checks ppp service
+#  action: service name=ppp state=running enabled=yes
+#  sudo: yes
+
 - name: Get ppp log
-  action: fetch src=/var/log/upstart/networking.log dest=reports/
+  action: fetch src=/var/log/upstart/networking.log dest={{ report_directory }}
   sudo: yes
 
 - name: Get ppp connect error log
-  action: fetch src=/var/log/ppp-connect-errors dest=reports/
+  action: fetch src=/var/log/ppp-connect-errors dest={{ report_directory }}
   sudo: yes

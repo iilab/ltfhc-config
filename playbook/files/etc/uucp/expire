@@ -64,7 +64,7 @@ $list				= 168;
 
 # After which time (__in days__) to expire files in uucppublic
 
-$expire_uucppublic		= 14;	# NOTE: This time is in days;
+$expire_uucppublic		= 3650;	# NOTE: This time is in days;
 					# system specific settings are not supported
 
 

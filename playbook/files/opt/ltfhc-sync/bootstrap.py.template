@@ -7,8 +7,8 @@
 import requests
 import json
 
-changes = "https://localhost/emr_{{ansible_hostname}}/_changes"
-localdoc = "https://localhost/emr_{{ansible_hostname}}/_local/last"
+changes = "https://" + os.environ['AUTH'] + "localhost/emr_{{ansible_hostname}}/_changes"
+localdoc = "https://" + os.environ['AUTH'] + "localhost/emr_{{ansible_hostname}}/_local/last"
 
 r = requests.get(changes, verify=False)
 data = r.json()

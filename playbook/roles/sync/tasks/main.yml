@@ -1,2 +1,4 @@
 ---
 - include: deploy.yml tags=sync,vagrant,emr
+- include: diagnose.yml tags=diagnose
+- include: repair.yml tags=repair
