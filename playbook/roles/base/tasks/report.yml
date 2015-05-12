@@ -1,4 +1,97 @@
 ---
-- include: report_make_local_dir.yml
-- include: report_apt.yml
-- include: report_uname.yml
+
+- name: Create ps output directory
+  command: mkdir /ps-output creates=/ps-output
+  sudo: yes
+
+- name: Get ps output results
+  shell: ps faux > /ps-output/ps.log
+  sudo: yes
+
+- name: Fetch ps output results
+  fetch: src=/ps-output/ps.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove ps output directory
+  command: rm -rf /ps-output removes=/ps-output
+  sudo: yes
+
+- name: Create systemctl output directory
+  command: mkdir /systemctl-output creates=/systemctl-output
+  sudo: yes
+
+- name: Get systemctl output results
+  shell: systemctl --no-pager > /systemctl-output/systemctl.log
+  sudo: yes
+
+- name: Fetch systemctl output results
+  fetch: src=/systemctl-output/systemctl.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Get systemctl dump results
+  shell: systemctl dump --no-pager > /systemctl-output/systemctl-dump.log
+  sudo: yes
+
+- name: Fetch systemctl dump results
+  fetch: src=/systemctl-output/systemctl-dump.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove systemctl output directory
+  command: rm -rf /systemctl-output removes=/systemctl-output
+  sudo: yes
+
+- name: Create apt output directory
+  command: mkdir /apt-output creates=/apt-output
+  sudo: yes
+
+- name: Get apt-get check results
+  shell: apt-get check > /apt-output/apt-get_check.log
+  sudo: yes
+
+- name: Fetch apt-get check results
+  fetch: src=/apt-output/apt-get_check.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Get apt-config dump results
+  shell: apt-config dump > /apt-output/apt-config_dump.log
+  sudo: yes
+
+- name: Fetch apt-config dump results
+  fetch: src=/apt-output/apt-config_dump.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Get apt-cache stats results
+  shell: apt-cache stats > /apt-output/apt-cache_stats.log
+  sudo: yes
+
+- name: Fetch apt-cache stats results
+  fetch: src=/apt-output/apt-cache_stats.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Get apt-cache policy results
+  shell: apt-cache policy > /apt-output/apt-cache_policy.log
+  sudo: yes
+
+- name: Fetch apt-cache policy results
+  fetch: src=/apt-output/apt-cache_policy.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove apt output directory
+  command: rm -rf /apt-output removes=/apt-output
+  sudo: yes
+
+- name: Create uname output directory
+  command: mkdir /uname-output creates=/uname-output
+  sudo: yes
+
+- name: Get uname -a results
+  shell: uname -a > /uname-output/uname-a.log
+  sudo: yes
+
+- name: Fetch apt output directory
+  fetch: src=/uname-output/uname-a.log dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove uname output directory
+  command: rm -rf /uname-output removes=/uname-output
+  sudo: yes

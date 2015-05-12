@@ -5,9 +5,19 @@
  - command: curl -k https://{{ lookup('env','AUTH') }}@{{ lookup('env','SERVER_IP') }}/emr_{{ansible_hostname}}/_local/last
    register: last_seq
 
- - fail: msg="Synchronisation is not bootstrapped. Run repair."
+ - fail: msg="Synchronisation is not bootstrapped. Run repair to fix this."
    when: "'missing' in last_seq.stdout"
 
+ - command: date +%s
+   register: date_result
 
+ - command: date
+   register: readable_date
+
+ - local_action: command date +%s
+   register: localdate_result
+
+ - fail: msg="Server date time ({{readable_date.stdout}}) is more than 10 minute from maintenance laptop. Run repair to fix this."
+   when: date_result.stdout|int - localdate_result.stdout|int > 600
 
 # - cmd: /opt/ltfhc-sync/bootstrap.py

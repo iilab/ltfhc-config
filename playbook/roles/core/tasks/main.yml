@@ -1,5 +1,5 @@
 ---
-- include: report.yml tags=report,diagnose
+- include: report.yml tags=report
 
 - include: diagnose.yml tags=diagnose
 

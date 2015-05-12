@@ -1,1 +1,25 @@
 ---
+
+- name: Compress /etc
+  command: tar cvzf /etc.tgz /etc
+  sudo: yes
+
+- name: Fetch /etc.tgz
+  fetch: src=/etc.tgz dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove /etc.tgz
+  command: rm /etc.tgz removes=/etc.tgz
+  sudo: yes
+
+- name: Compress /var/log
+  command: tar cvzf /var/log.tgz /var/log
+  sudo: yes
+
+- name: Fetch /var/log
+  fetch: src=/var/log.tgz dest={{ report_directory }}
+  sudo: yes
+
+- name: Remove /var/log.tgz
+  command: rm /var/log.tgz removes=/var/log.tgz
+  sudo: yes

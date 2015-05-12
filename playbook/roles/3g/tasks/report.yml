@@ -1,5 +1,2 @@
 #dumps relevant log information about the 3g PPP, networking and chat
 ---
-- include: report_ppp.yml
-- include: report_networking.yml
-- include: report_chat.yml
