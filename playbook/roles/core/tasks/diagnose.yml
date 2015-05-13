@@ -1,1 +1,10 @@
 ---
+
+
+ - raw: 'echo $(($(stat -f --format="%a*%S" .)/10**6))'
+   register: root_space
+
+ - debug: msg={{root_space.stdout|int}}
+
+ - fail: msg="Disk space on root partition is less than one gigabyte. Run repairs to fix this." 
+   when: root_space.stdout|int < 1000

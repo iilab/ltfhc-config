@@ -17,7 +17,9 @@
  - local_action: command date +%s
    register: localdate_result
 
+ - debug: msg={{ date_result.stdout|int - localdate_result.stdout|int}}
+
  - fail: msg="Server date time ({{readable_date.stdout}}) is more than 10 minute from maintenance laptop. Run repair to fix this."
-   when: date_result.stdout|int - localdate_result.stdout|int > 600
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
 
 # - cmd: /opt/ltfhc-sync/bootstrap.py

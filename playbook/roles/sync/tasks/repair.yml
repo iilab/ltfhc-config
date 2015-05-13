@@ -1,5 +1,63 @@
 ---
 
- - command: /opt/ltfhc-sync/bootstrap.py
-   environment:
-    AUTH: "{{ lookup('env','AUTH') }}"
+ - command: curl -k https://{{ lookup('env','AUTH') }}@{{ lookup('env','SERVER_IP') }}/emr_{{ansible_hostname}}/_local/last
+   register: last_seq
+
+ - debug: msg="REPAIRING SYNC BOOTSTRAP"
+   when: "'missing' in last_seq.stdout"
+
+ - command:  /opt/ltfhc-sync/bootstrap.py
+   when: "'missing' in last_seq.stdout"
+   register: bootstrap
+   sudo: yes
+
+ - command: curl -k https://{{ lookup('env','AUTH') }}@{{ lookup('env','SERVER_IP') }}/emr_{{ansible_hostname}}/_local/last
+   when: bootstrap|changed
+   register: last_seq_check
+
+ - fail: msg="!!! REPAIR FAILED !!! CONTINUING WITH FOLLOWING REPAIRS"
+   when: "bootstrap|changed and 'missing' in last_seq_check.stdout | default('')"
+   ignore_errors: yes
+
+ - command: date +%s
+   register: date_result
+
+ - command: date
+   register: readable_date
+
+ - local_action: command date +%s
+   register: localdate_result
+
+ - debug: msg="REPAIRING TIME DIFFERENCE"
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
+
+ - name: Set timezone
+   copy: src=files/etc/timezone dest=/etc/timezone
+   sudo: yes
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
+
+ - name: Set timezone
+   command: dpkg-reconfigure --frontend noninteractive tzdata
+   sudo: yes
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
+
+ - name: Get time from management computer
+   local_action: command date
+   register: local_time
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
+
+ - name: Set time from management computer
+   command: date --set="{{local_time.stdout}}"
+   sudo: yes
+   when: "( date_result.stdout|int - localdate_result.stdout|int > 600 ) or ( date_result.stdout|int - localdate_result.stdout|int < -600 )"
+
+ - command: date +%s
+   register: date_result_check
+
+ - local_action: command date +%s
+   register: localdate_result_check
+
+ - fail: msg="!!! REPAIR FAILED !!! CONTINUING WITH FOLLOWING REPAIRS"
+   when: "( date_result_check.stdout|int - localdate_result_check.stdout|int > 600 ) or ( date_result_check.stdout|int - localdate_result_check.stdout|int < -600 )"
+
+# - cmd: /opt/ltfhc-sync/bootstrap.py

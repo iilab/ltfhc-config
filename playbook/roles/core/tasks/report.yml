@@ -1,7 +1,7 @@
 ---
 
 - name: Compress /etc
-  command: tar cvzf /etc.tgz /etc
+  command: tar --ignore-failed-read -cvzf /etc.tgz /etc
   sudo: yes
 
 - name: Fetch /etc.tgz
@@ -13,10 +13,10 @@
   sudo: yes
 
 - name: Compress /var/log
-  command: tar cvzf /var/log.tgz /var/log
+  command: tar --ignore-failed-read -cvzf /var/log.tgz /var/log
   sudo: yes
 
-- name: Fetch /var/log
+- name: Fetch /var/log.tgz 
   fetch: src=/var/log.tgz dest={{ report_directory }}
   sudo: yes
 

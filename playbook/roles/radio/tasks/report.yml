@@ -1,30 +1,71 @@
 ---
 
 - name: Create uucp output directory
-  command: mkdir /uucp-output creates=/uucp-output
+  command: mkdir /radio-output creates=/radio-output
   ignore_errors: yes
   sudo: yes
 
 - name: Get uuchk results
-  shell: /usr/lib/uucp/uuchk > /uucp-output/uuchk.log
+  shell: /usr/lib/uucp/uuchk > /radio-output/uuchk.log
   sudo: yes
   ignore_errors: yes
+
+- name: Fetch uuchk results
+  fetch: src=/radio-output/uuchk.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
 
 - name: Get uustat -a check results
-  shell: uustat -a > /uucp-output/uustat-a.log
+  shell: uustat -a > /radio-output/uustat-a.log
   sudo: yes
   ignore_errors: yes
+
+- name: Fetch uustat -a check results
+  fetch: src=/radio-output/uustat-a.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
 
 - name: Get uustat -p check results
-  shell: uustat -p > /uucp-output/uustat-p.log
+  shell: uustat -p > /radio-output/uustat-p.log
   sudo: yes
   ignore_errors: yes
 
-- name: Get uucp output directory
-  fetch: src=/uucp dest={{ report_directory }}
+- name: Fetch uustat -p check results
+  fetch: src=/radio-output/uustat-p.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
+
+- name: Get uustat --status check results
+  shell: uustat --status > /radio-output/uustat-status.log
+  sudo: yes
   ignore_errors: yes
 
+- name: Fetch uustat --status check results
+  fetch: src=/radio-output/uustat-status.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
+
+- name: Get uurate -t check results
+  shell: uurate -t > /radio-output/uurate-t.log
+  sudo: yes
+  ignore_errors: yes
+
+- name: Fetch uurate -t check results
+  fetch: src=/radio-output/uurate-t.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
+
+- name: Get serial state results
+  shell: cat /proc/tty/driver/serial > /radio-output/driver-serial.log
+  sudo: yes
+  ignore_errors: yes
+
+- name: Fetch serial state results
+  fetch: src=/radio-output/driver-serial.log dest={{ report_directory }}
+  ignore_errors: yes
+  sudo: yes
+
 - name: Remove uucp output directory
-  command: rm -rf /uucp-output removes=/uucp-output
+  command: rm -rf /radio-output removes=/radio-output
   ignore_errors: yes
   sudo: yes
